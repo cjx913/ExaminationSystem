@@ -1,6 +1,8 @@
 package com.cjx913.es.controller;
 
 
+import com.cjx913.es.entity.persistent.Paper;
+import com.cjx913.es.entity.persistent.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,9 +21,7 @@ public class ExaminationController {
     @ResponseBody
     public List<Subject> getAllSubject(){
         List<Subject> subjects = new ArrayList <>();
-        for(int i=1;i<=10;i++){
-            subjects.add(new Subject("100"+i,"科目"+i,100+i));
-        }
+
         return subjects;
     }
 
@@ -35,9 +35,7 @@ public class ExaminationController {
     @ResponseBody
     public List<Paper> getPapers(@PathVariable(name = "subjectId") String subjectId){
         List<Paper> papers = new ArrayList <>();
-        for(int i=1;i<=30;i++){
-            papers.add(new Paper(subjectId+"-id-"+i,subjectId+"-name-"+i));
-        }
+
         return papers;
     }
 
