@@ -58,16 +58,6 @@ public class PaperController {
         }
         try {
             final String wordFilePath = fileService.uploadWordFile(multipartFile);
-            taskExecutor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        fileService.wordToPdf(wordFilePath);
-                    } catch (URISyntaxException|ExecutionException|InterruptedException e) {
-                        throw new CustomException(e.getMessage(),e);
-                    }
-                }
-            });
             return wordFilePath != null ? "上传成功" : "上传失败";
         } catch (URISyntaxException | IOException | ExecutionException | InterruptedException e) {
             throw new CustomException(e.getMessage(), e);

@@ -1,0 +1,76 @@
+package com.cjx913.es.entity.persistent;
+
+public class Paper {
+    private String id;
+    private String subject_id;
+    private String name;
+    private int panduanti;
+    private int danxuanti;
+    private int duoxuanti;
+    private int tiankongti;
+    private int jiedati;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getSubject_id() {
+        return subject_id;
+    }
+
+    public void setSubject_id(String subject_id) {
+        this.subject_id = subject_id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getPanduanti() {
+        return panduanti;
+    }
+
+    public void setPanduanti(int panduanti) {
+        this.panduanti = panduanti;
+    }
+
+    public int getDanxuanti() {
+        return danxuanti;
+    }
+
+    public void setDanxuanti(int danxuanti) {
+        this.danxuanti = danxuanti;
+    }
+
+    public int getDuoxuanti() {
+        return duoxuanti;
+    }
+
+    public void setDuoxuanti(int duoxuanti) {
+        this.duoxuanti = duoxuanti;
+    }
+
+    public int getTiankongti() {
+        return tiankongti;
+    }
+
+    public void setTiankongti(int tiankongti) {
+        this.tiankongti = tiankongti;
+    }
+
+    public int getJiedati() {
+        return jiedati;
+    }
+
+    public void setJiedati(int jiedati) {
+        this.jiedati = jiedati;
+    }
+}

@@ -1,16 +1,8 @@
-package com.cjx913.es.entity.domain;
+package com.cjx913.es.entity.persistent;
 
-public class Paper {
+public class Subject {
     private String id;
     private String name;
-
-    public Paper() {
-    }
-
-    public Paper(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 
     public String getId() {
         return id;

@@ -21,9 +21,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
-	
-	@Autowired 
-	private UserService userService;
 
     private static final Logger log = LoggerFactory.getLogger(FormAuthenticationFilter.class);
 
@@ -108,7 +105,6 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
 	protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request,
 			ServletResponse response) throws Exception {
 
-		
 		return super.onLoginSuccess(token, subject, request, response);
 	}
     

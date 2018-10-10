@@ -1,14 +1,20 @@
 package com.cjx913.es.service;
 
-import com.cjx913.es.entity.persistent.SysUser;
+import com.cjx913.es.entity.persistent.Permission;
+import com.cjx913.es.entity.persistent.Role;
+import com.cjx913.es.entity.persistent.User;
 import com.cjx913.es.exception.CustomException;
 
 import java.util.List;
 
 
 public interface UserService {
-    List<SysUser> findAllSysUser() throws CustomException;
-    SysUser findSysUserByUsername(String username) throws CustomException;
-    SysUser findSysUserByAccount(String account) throws CustomException;
-    void saveSysUser(SysUser sysUser) throws CustomException;
+    List<User> findAllUser() throws CustomException;
+    User findUserByUsername(String username) throws CustomException;
+    User findUserByAccount(String account) throws CustomException;
+    void saveUser(User user) throws CustomException;
+
+    List<Permission> findPermissionsByUserId(String userId);
+
+    List<Role> findRolesByUserId(String userId);
 }

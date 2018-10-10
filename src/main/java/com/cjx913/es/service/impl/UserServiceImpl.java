@@ -2,8 +2,12 @@ package com.cjx913.es.service.impl;
 
 import java.util.List;
 
-import com.cjx913.es.entity.persistent.SysUser;
+import com.cjx913.es.entity.persistent.Permission;
+import com.cjx913.es.entity.persistent.Role;
+import com.cjx913.es.entity.persistent.User;
 import com.cjx913.es.exception.CustomException;
+import com.cjx913.es.mapper.PermissionMapper;
+import com.cjx913.es.mapper.RoleMapper;
 import com.cjx913.es.mapper.UserMapper;
 import com.cjx913.es.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,24 +20,38 @@ public class UserServiceImpl  implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private PermissionMapper permissionMapper;
+    @Autowired
+    private RoleMapper roleMapper;
 
     @Override
-    public List <SysUser> findAllSysUser() throws CustomException {
-        return userMapper.selectAllSysUser();
+    public List <User> findAllUser() throws CustomException {
+        return userMapper.selectAllUser();
     }
 
     @Override
-    public SysUser findSysUserByUsername(String username) throws CustomException {
-        return userMapper.selectSysUserByUsername(username);
+    public User findUserByUsername(String username) throws CustomException {
+        return userMapper.selectUserByUsername(username);
     }
 
     @Override
-    public SysUser findSysUserByAccount(String account) throws CustomException {
-        return userMapper.selectSysUserByAccount(account);
+    public User findUserByAccount(String account) throws CustomException {
+        return userMapper.selectUserByAccount(account);
     }
 
     @Override
-    public void saveSysUser(SysUser sysUser) throws CustomException {
-        userMapper.insetSysUser(sysUser);
+    public void saveUser(User user) throws CustomException {
+        userMapper.insetUser(user);
+    }
+
+    @Override
+    public List <Permission> findPermissionsByUserId(String userId) {
+        return permissionMapper.selectPermissionsByUserId(userId);
+    }
+
+    @Override
+    public List <Role> findRolesByUserId(String userId) {
+        return roleMapper.selectRolesByUserId(userId);
     }
 }

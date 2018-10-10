@@ -26,8 +26,8 @@ import java.util.concurrent.FutureTask;
 @Transactional
 public class FileServiceImpl implements FileService {
 
-    @Value("${out_file_dir_path}")
-    private String outFileDirPath;
+    @Value("${out_word_dir_path}")
+    private String outWordDirPath;
     @Autowired
     private PaperMapper paperMapper;
     @Autowired
@@ -40,11 +40,13 @@ public class FileServiceImpl implements FileService {
         int index = fileName.lastIndexOf(".");
         String fileNameWithoutSuffix = fileName.substring(0, index);
         String fileSuffixName = fileName.substring(index);
-        String fileDirPath = outFileDirPath + "word/";
-        if (!Files.exists(Paths.get(fileDirPath))) {
-            Files.createDirectories(Paths.get(fileDirPath));
+        if(!outWordDirPath.endsWith("/")){
+            outWordDirPath = outWordDirPath+"/";
         }
-        String filePath = fileDirPath + fileNameWithoutSuffix + "-" + System.currentTimeMillis() + fileSuffixName;
+        if (!Files.exists(Paths.get(outWordDirPath))) {
+            Files.createDirectories(Paths.get(outWordDirPath));
+        }
+        String filePath = outWordDirPath + fileNameWithoutSuffix + "-" + System.currentTimeMillis() + fileSuffixName;
         File file = new File(filePath);
         multipartFile.transferTo(file);
         return filePath;

@@ -63,6 +63,12 @@ public class SystemController {
 //        session.invalidate();
         return "register";
     }
+
+    @RequestMapping("/register")
+    public String register(HttpSession session) throws CustomException{
+
+        return "register";
+    }
     
 
 

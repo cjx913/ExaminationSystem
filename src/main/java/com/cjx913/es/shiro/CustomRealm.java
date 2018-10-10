@@ -1,7 +1,9 @@
 package com.cjx913.es.shiro;
 
 import com.cjx913.es.entity.domain.UserIdentity;
-import com.cjx913.es.entity.persistent.SysUser;
+import com.cjx913.es.entity.persistent.Permission;
+import com.cjx913.es.entity.persistent.Role;
+import com.cjx913.es.entity.persistent.User;
 import com.cjx913.es.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -14,6 +16,9 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CustomRealm extends AuthorizingRealm {
@@ -44,28 +49,28 @@ public class CustomRealm extends AuthorizingRealm {
         String username = (String) token.getPrincipal();
 
         // 第二步：根据用户输入的userCode从数据库查询
-        SysUser sysUser = null;
-        sysUser = userService.findSysUserByUsername(username);
+        User user = null;
+        user = userService.findUserByUsername(username);
 
 
         // 如果查询不到返回null
-        if (sysUser == null) {
+        if (user == null) {
             return null;
         }
         // 从数据库查询到密码
-        String password = sysUser.getPassword();
+        String password = user.getPassword();
 
         //盐
-        String salt = sysUser.getSalt();
+        String salt = user.getSalt();
 
         // 如果查询到返回认证信息AuthenticationInfo
 
         //userIdentity就是用户身份信息
         UserIdentity userIdentity = new UserIdentity();
 
-        userIdentity.setUserid(sysUser.getId());
-        userIdentity.setAccount(sysUser.getAccount());
-        userIdentity.setUsername(sysUser.getName());
+        userIdentity.setUserId(user.getId());
+        userIdentity.setAccount(user.getAccount());
+        userIdentity.setUsername(user.getName());
 
         //将activeUser设置simpleAuthenticationInfo
         SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(
@@ -77,38 +82,42 @@ public class CustomRealm extends AuthorizingRealm {
 
     // 用于授权
     @Override
-    protected AuthorizationInfo doGetAuthorizationInfo(
-            PrincipalCollection principals) {
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 
-        //从 principals获取主身份信息
-        //将getPrimaryPrincipal方法返回值转为真实身份类型（在上边的doGetAuthenticationInfo认证通过填充到SimpleAuthenticationInfo中身份类型），
-        UserIdentity userIdentity = (UserIdentity) principals.getPrimaryPrincipal();
+            //从 principals获取主身份信息
+            //将getPrimaryPrincipal方法返回值转为真实身份类型（在上边的doGetAuthenticationInfo认证通过填充到SimpleAuthenticationInfo中身份类型），
+            UserIdentity userIdentity = (UserIdentity) principals.getPrimaryPrincipal();
 
+            //根据身份信息获取权限信息
+            //从数据库获取到角色数据
+            List <Role> roles = userService.findRolesByUserId(userIdentity.getUserId());
+            List<String> roleList = new ArrayList <>();
+            if(roles!=null){
+                for(Role role:roles){
+                    roleList.add(role.getName());
+                }
+            }
 
-        //根据身份信息获取权限信息
-        //从数据库获取到权限数据
-//		List<SysPermission> permissionList = null;
-//		try {
-//			permissionList = systemService.findPermissionListByUserId(activeUser.getUserid());
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		//单独定一个集合对象
-//		List<String> permissions = new ArrayList<String>();
-//		if(permissionList!=null){
-//			for(SysPermission sysPermission:permissionList){
-//				//将数据库中的权限标签 符放入集合
-//				permissions.add(sysPermission.getPercode());
-//			}
-//		}
+            //从数据库获取到权限数据
+            List <Permission> permissions = userService.findPermissionsByUserId(userIdentity.getUserId());
 
+            //单独定一个集合对象
+            List <String> permissionList = new ArrayList <String>();
+            if (permissions != null) {
+                for (Permission permission : permissions) {
+                    //将数据库中的权限标签 符放入集合
+                    permissionList.add(permission.getPercode());
+                }
+            }
 
-        //查到权限数据，返回授权信息(要包括 上边的permissions)
-        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        //将上边查询到授权信息填充到simpleAuthorizationInfo对象中
-//		simpleAuthorizationInfo.addStringPermissions(permissions);
+            //查到权限数据，返回授权信息(要包括 上边的permissions)
+            SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+            //将上边查询到授权信息填充到simpleAuthorizationInfo对象中
+            simpleAuthorizationInfo.addStringPermissions(permissionList);
+            simpleAuthorizationInfo.addRoles(roleList);
 
-        return simpleAuthorizationInfo;
+            return simpleAuthorizationInfo;
+
     }
 
     //清除缓存

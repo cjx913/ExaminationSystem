@@ -1,6 +1,6 @@
 package com.cjx913.es.entity.persistent;
 
-public class SysUser {
+public class User {
     private String id;
     private String account;
     private String name;
@@ -24,8 +24,6 @@ public class SysUser {
     public void setAccount(String account) {
         this.account = account;
     }
-
-    
 
     public String getName() {
 		return name;

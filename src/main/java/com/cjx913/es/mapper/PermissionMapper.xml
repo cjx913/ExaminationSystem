@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cjx913.es.mapper.PermissionMapper">
+    <resultMap id="BaseResultMap" type="permission">
+        <id  column="id" property="id"/>
+        <association column="permission" property="permission"/>
+        <association column="url" property="url"/>
+        <association column="available" property="available"/>
+    </resultMap>
+
+
+    <select id="selectPermissionsByUserId" parameterType="string" resultMap="BaseResultMap">
+        SELECT id,permission,url,available
+        from sys_permission,sys_role_permission
+        where role_id=id AND role_id in
+        (select role_id
+        from sys_user_role
+        where user_id = #{userId})
+    </select>
+</mapper>

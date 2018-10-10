@@ -11,13 +11,13 @@ public class CustomWordToPdfUtil {
     @Value("${font_path}")
     private String fontPath;
 
-    @Value("${out_file_dir_path}")
-    private String outFileDirPath;
+    @Value("${out_pdf_dir_path}")
+    private String outPdfDirPath;
 
     public String wordToPdf(@NotNull final String inFilePath) throws URISyntaxException {
-        fontPath = this.getClass().getResource("/").toURI().getPath()+fontPath;
-        outFileDirPath = outFileDirPath+"pdf/";
-        return new WordToPdfUtil(inFilePath,outFileDirPath,fontPath).wordToPdf();
+        if(!outPdfDirPath.endsWith("/")) outPdfDirPath=outPdfDirPath+"/";
+        if(fontPath.startsWith("/")) fontPath = fontPath.substring(1);
+        return new WordToPdfUtil(inFilePath,this.outPdfDirPath,this.getClass().getResource("/").toURI().getPath()+this.fontPath).wordToPdf();
     }
 
 }

@@ -2,7 +2,6 @@ package com.cjx913.es.controller;
 
 import java.util.*;
 
-import com.cjx913.es.entity.domain.ExamResult;
 import com.cjx913.es.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

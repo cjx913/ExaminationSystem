@@ -1,12 +1,8 @@
 package com.cjx913.es.controller;
 
 
-import com.cjx913.es.entity.domain.Paper;
-import com.cjx913.es.entity.domain.Subject;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import sun.swing.BakedArrayList;
 
 import java.util.ArrayList;
 import java.util.List;
