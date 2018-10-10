@@ -3,20 +3,35 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
     <context:component-scan base-package="com.cjx913.es.utils"></context:component-scan>
 
+    <!--读取配置文件信息-->
     <bean id="placeholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="fileEncoding" value="utf-8"/>
         <property name="locations">
             <list>
                 <value>classpath:config/file_path.properties</value>
                 <value>classpath:config/database.properties</value>
+                <value>classpath:config/task.properties</value>
             </list>
         </property>
         <property name="trimValues" value="true"/>
     </bean>
+
+
+    <!--线程池-->
+    <bean id="taskExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="${task_core_pool_size}"/>        <!-- 核心线程数 -->
+        <property name="maxPoolSize" value="${task_max_pool_size}"/>        <!-- 最大线程数 --><!-- 队列最大长度 -->
+        <property name="queueCapacity" value="${task_queue_capacity}"/>       <!-- 队列最大长度 -->
+        <property name="keepAliveSeconds" value="${task_keep_alive_seconds}"/><!-- 线程池维护线程所允许的空闲时间，默认为60s -->
+    </bean>
+    <!-- 注解式 -->
+    <task:annotation-driven/>
 
 
 </beans>

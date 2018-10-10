@@ -15,7 +15,7 @@ public class CustomWordToPdfUtil {
     private String outFileDirPath;
 
     public String wordToPdf(@NotNull final String inFilePath) throws URISyntaxException {
-        fontPath = CustomWordToPdfUtil.class.getResource(fontPath).toURI().getPath();
+        fontPath = this.getClass().getResource("/").toURI().getPath()+fontPath;
         outFileDirPath = outFileDirPath+"pdf/";
         return new WordToPdfUtil(inFilePath,outFileDirPath,fontPath).wordToPdf();
     }
