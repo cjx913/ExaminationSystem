@@ -15,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -34,9 +36,8 @@ public class FileServiceImpl implements FileService {
     private CustomWordToPdfUtil customWordToPdfUtil;
 
     @Override
-    public String uploadWordFile(MultipartFile multipartFile) throws URISyntaxException, IOException, ExecutionException, InterruptedException {
+    public String uploadWordFile(String fileName, InputStream is) throws  IOException {
 
-        String fileName = multipartFile.getOriginalFilename();
         int index = fileName.lastIndexOf(".");
         String fileNameWithoutSuffix = fileName.substring(0, index);
         String fileSuffixName = fileName.substring(index);
@@ -47,8 +48,7 @@ public class FileServiceImpl implements FileService {
             Files.createDirectories(Paths.get(outWordDirPath));
         }
         String filePath = outWordDirPath + fileNameWithoutSuffix + "-" + System.currentTimeMillis() + fileSuffixName;
-        File file = new File(filePath);
-        multipartFile.transferTo(file);
+        Files.copy(is,Paths.get(filePath));
         return filePath;
     }
 

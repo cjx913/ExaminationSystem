@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cjx913.es.mapper.UserMapper" >
 
-
     <resultMap id="UserResultMap" type="user" >
         <id column="id" property="id" jdbcType="VARCHAR" />
         <result column="account" property="account" jdbcType="VARCHAR" />
@@ -12,6 +11,38 @@
         <result column="locked" property="locked" jdbcType="TINYINT" />
     </resultMap>
 
+    <resultMap id="RoleResultMap" type="role">
+        <id  column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="available" property="available"/>
+    </resultMap>
+
+    <resultMap id="PermissionResultMap" type="permission">
+        <id  column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="url" property="url"/>
+        <result column="available" property="available"/>
+    </resultMap>
+
+    <resultMap id="UserVO" type="userVO">
+        <result column="user_id" property="userId" />
+        <result column="user_account" property="userAccount"  />
+        <result column="user_name" property="userName" />
+        <result column="user_password" property="userPassword" />
+        <result column="user_salt" property="userSalt" />
+        <result column="user_locked" property="userLocked" />
+
+        <result  column="role_id" property="roleId"/>
+        <result column="role_name" property="roleName"/>
+        <result column="role_available" property="roleAvailable"/>
+
+        <result  column="permission_id" property="permissionId"/>
+        <result column="permission_Name" property="permissionName"/>
+        <result column="permission_url" property="permissionUrl"/>
+        <result column="permission_available" property="permissionAvailable"/>
+    </resultMap>
+
+    <!--User-->
     <select id="selectAllUser" resultMap="UserResultMap">
         select id,account,name,password,salt,locked
         from sys_user
@@ -36,4 +67,22 @@
         insert into sys_user(id, account, name, password, salt, locked)
         values (#{id},#{account},#{name},#{password},#{salt},#{locked})
     </insert>
+
+    <!--Role-->
+    <select id="selectRolesByUserId" parameterType="string" resultMap="RoleResultMap">
+        SELECT id,name,available
+        from sys_role,sys_user_role
+        where id = role_id and user_id=#{userId}
+    </select>
+
+
+    <!--Permission-->
+    <select id="selectPermissionsByUserId" parameterType="string" resultMap="PermissionResultMap">
+        SELECT id,name,url,available
+        from sys_permission,sys_role_permission
+        where role_id=id AND role_id in
+        (select role_id
+        from sys_user_role
+        where user_id = #{userId})
+    </select>
 </mapper>

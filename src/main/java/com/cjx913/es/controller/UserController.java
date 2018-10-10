@@ -25,17 +25,6 @@ public class UserController {
     @ResponseBody
     public Map <String, Object> getScoreList(Integer start, Integer size,String searchtext,String sortorder) {
 
-        List <ExamResult> rows = new ArrayList <>();
-
-        for (int i = start; i <= start + size - 1; i++) {
-            rows.add(new ExamResult("id-" + i, "userName-" + i,
-                    "subjectName-" + i, "paperName-" + i,
-                    new Date(), new Date(), 0 + i));
-        }
-
-        Map <String, Object> result = new HashMap <>();
-        result.put("total", 100);
-        result.put("rows", rows);
-        return result;
+        return null;
     }
 }

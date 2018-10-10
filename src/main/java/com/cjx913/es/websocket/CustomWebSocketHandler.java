@@ -27,7 +27,7 @@ public class CustomWebSocketHandler extends AbstractWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) {
         UserIdentity userIdentity = (UserIdentity) session.getPrincipal();
-        String userId = userIdentity.getUserid();
+        String userId = userIdentity.getUserId();
         if (userId != null && !sessionMap.containsKey(userId)) {
             sessionMap.put(userId, session);
         }

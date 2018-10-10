@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cjx913.es.mapper.PaperMapper">
+    <resultMap id="PaperResultMap" type="paper">
+        <id column="id" property="id"/>
+        <result property="subjectId" column="subject_id"/>
+        <result property="name" column="name"/>
+        <result property="panduanti" column="panduanti"/>
+        <result property="danxuanti" column="danxuanti"/>
+        <result property="duoxuanti" column="duoxuanti"/>
+        <result property="tiankongti" column="tiankongti"/>
+        <result property="jiedati" column="jiedati"/>
+    </resultMap>
+    <resultMap id="PaperFileResultMap" type="paperFile">
+        <id property="paperId" column="paper_id"/>
+        <result property="wordPath" column="word_file"/>
+        <result property="pdfPath" column="pdf_path"/>
+    </resultMap>
+    <resultMap id="SubjectResultMap" type="subject">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+    <resultMap id="PaperVOResultMap" type="paperVO">
+        <result property="paperId" column="paper_Id"/>
+        <result property="paperName" column="paper_name"/>
+        <result property="paperPanduanti" column="paper_panduanti"/>
+        <result property="paperDanxuanti" column="paper_danxuanti"/>
+        <result property="paperDuoxuanti" column="paper_duoxuanti"/>
+        <result property="paperTiankongti" column="paper_tiankongti"/>
+        <result property="paperJiedati" column="paper_jiedati"/>
+
+        <result property="paperWordPath" column="paper_word_path"/>
+        <result property="paperPdfPath" column="paper_pdf_path"/>
+
+        <result property="subjectId" column="subject_id"/>
+        <result property="subjectName" column="subject_name"/>
+
+        <result property="subjectPaperCount" column="subject_paper_count"/>
+    </resultMap>
+
+    <!--paper-->
+    <select id="selectAllPapersBySubjectId" parameterType="string" resultMap="PaperResultMap">
+        select id,subject_id,name,panduanti,danxuanti,duoxuanti,tiankongti,jiedati
+        from  t_paper
+        where subject_id=#{subjectId}
+    </select>
+
+    <!--paperVO-->
+    <select id="selectAllSubjectsWithPaperCount" resultMap="PaperVOResultMap">
+        select s.id as subject_id,s.name as subject_name,count(p.id) as subject_paper_count
+        from t_subject as s,t_paper as p
+        where s.id=p.subject_id
+    </select>
+    <select id="findPaperWithPdfPathBySubjectIdAndPaperId" parameterType="paperVO" resultMap="PaperVOResultMap">
+        select p.id as paper_id,p.subject_id as subject_id,p.name as paper_name,
+        p.panduanti as paper_panduanti,p.danxuanti as paper_danxuanti,
+        p.tiankongti as paper_tiankongti,p.jiedati as paper_jiedati,
+        pf.pdf_path as paper_pdf_path
+        from t_paper as p,t_paper_file as pf
+        where p.id=pf.paper_id and p.subject_id=#{subjectId} and p.id=#{paperId}
+    </select>
+    <select id="selectPaperNameAndPdfPathBySubjectIdAndPaperId" parameterType="paperVO" resultMap="PaperVOResultMap">
+        select p.name as paper_name,pf.pdf_path as paper_pdf_path
+        from t_paper as p,t_paper_file as pf
+        where p.id=pf.paper_id and p.subject_id=#{subjectId} and p.id=#{paperId}
+    </select>
+</mapper>

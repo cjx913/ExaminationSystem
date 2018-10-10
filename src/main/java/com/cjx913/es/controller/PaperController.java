@@ -28,21 +28,6 @@ public class PaperController {
     @Autowired
     private TaskExecutor taskExecutor;
 
-    @RequestMapping("get")
-    @ResponseBody
-    public Map <String, Object> getPaper() {
-        Map <String, Object> result = new HashMap <>();
-        try {
-            Path path = Paths.get("e:", "1.pdf");
-            byte[] data = Files.readAllBytes(path);
-            String filename = "output.pdf";
-            result.put("filename", filename);
-            result.put("data", data);
-            return result;
-        } catch (IOException e) {
-            throw new CustomException(e);
-        }
-    }
 
     @RequestMapping("/toPaperUpload")
     public String toPaperUpload() {
@@ -52,14 +37,16 @@ public class PaperController {
     @RequestMapping("/upload")
     @ResponseBody
     public String uploadPaper(@RequestParam("upload") MultipartFile multipartFile) throws CustomException {
-        String filename = multipartFile.getOriginalFilename();
-        if (!filename.endsWith(".docx") && !filename.endsWith(".doc")) {
-            return "文件类型错误";
-        }
+
         try {
-            final String wordFilePath = fileService.uploadWordFile(multipartFile);
+            String filename = multipartFile.getOriginalFilename();
+            if (!filename.endsWith(".docx") && !filename.endsWith(".doc")) {
+                return "上传失败!文件类型错误";
+            }
+
+            final String wordFilePath = fileService.uploadWordFile(multipartFile.getOriginalFilename(), multipartFile.getInputStream());
             return wordFilePath != null ? "上传成功" : "上传失败";
-        } catch (URISyntaxException | IOException | ExecutionException | InterruptedException e) {
+        } catch (IOException | URISyntaxException | ExecutionException | InterruptedException e) {
             throw new CustomException(e.getMessage(), e);
         }
     }

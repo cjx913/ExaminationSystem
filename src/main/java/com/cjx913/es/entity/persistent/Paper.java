@@ -2,7 +2,7 @@ package com.cjx913.es.entity.persistent;
 
 public class Paper {
     private String id;
-    private String subject_id;
+    private String subjectId;
     private String name;
     private int panduanti;
     private int danxuanti;
@@ -18,12 +18,12 @@ public class Paper {
         this.id = id;
     }
 
-    public String getSubject_id() {
-        return subject_id;
+    public String getSubjectId() {
+        return subjectId;
     }
 
-    public void setSubject_id(String subject_id) {
-        this.subject_id = subject_id;
+    public void setSubject_id(String subjectId) {
+        this.subjectId = subjectId;
     }
 
     public String getName() {

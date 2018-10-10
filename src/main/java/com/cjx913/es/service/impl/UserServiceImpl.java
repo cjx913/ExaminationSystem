@@ -6,8 +6,6 @@ import com.cjx913.es.entity.persistent.Permission;
 import com.cjx913.es.entity.persistent.Role;
 import com.cjx913.es.entity.persistent.User;
 import com.cjx913.es.exception.CustomException;
-import com.cjx913.es.mapper.PermissionMapper;
-import com.cjx913.es.mapper.RoleMapper;
 import com.cjx913.es.mapper.UserMapper;
 import com.cjx913.es.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +18,6 @@ public class UserServiceImpl  implements UserService {
 
     @Autowired
     private UserMapper userMapper;
-    @Autowired
-    private PermissionMapper permissionMapper;
-    @Autowired
-    private RoleMapper roleMapper;
 
     @Override
     public List <User> findAllUser() throws CustomException {
@@ -47,11 +41,11 @@ public class UserServiceImpl  implements UserService {
 
     @Override
     public List <Permission> findPermissionsByUserId(String userId) {
-        return permissionMapper.selectPermissionsByUserId(userId);
+        return userMapper.selectPermissionsByUserId(userId);
     }
 
     @Override
     public List <Role> findRolesByUserId(String userId) {
-        return roleMapper.selectRolesByUserId(userId);
+        return userMapper.selectRolesByUserId(userId);
     }
 }

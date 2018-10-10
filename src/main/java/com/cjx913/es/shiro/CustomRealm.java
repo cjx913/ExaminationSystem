@@ -106,7 +106,7 @@ public class CustomRealm extends AuthorizingRealm {
             if (permissions != null) {
                 for (Permission permission : permissions) {
                     //将数据库中的权限标签 符放入集合
-                    permissionList.add(permission.getPercode());
+                    permissionList.add(permission.getName());
                 }
             }
 

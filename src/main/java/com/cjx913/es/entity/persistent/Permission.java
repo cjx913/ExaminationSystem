@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Permission {
     private String id;
-    private String permission;
+    private String name;
     private String url;
     private int available;
 
@@ -17,12 +17,12 @@ public class Permission {
         this.id = id;
     }
 
-    public String getPercode() {
-        return permission;
+    public String getName() {
+        return name;
     }
 
-    public void setPercode(String permission) {
-        this.permission = permission;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getUrl() {
