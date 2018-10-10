@@ -67,6 +67,8 @@
         <property name="validationMessageSource" ref="messageSource"/>
     </bean>
 
+
+
     <!--文件上传解析器-->
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.support.StandardServletMultipartResolver">

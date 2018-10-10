@@ -1,15 +1,9 @@
 package com.cjx913.es.controller;
 
-import com.cjx913.es.entity.domain.WordUploadFile;
 import com.cjx913.es.exception.CustomException;
 import com.cjx913.es.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,19 +46,19 @@ public class PaperController {
     }
 
     @RequestMapping("/upload")
-    public String uploadPaper(@RequestParam("upload") MultipartFile multipartFile){
-
+    @ResponseBody
+    public String uploadPaper(@RequestParam("upload") MultipartFile multipartFile) throws CustomException {
+        String filename = multipartFile.getOriginalFilename();
+        if(!filename.endsWith(".docx")&&!filename.endsWith(".doc")){
+            return "文件类型错误";
+        }
+        String wordFilePath = null;
         try {
-//            MultipartFile multipartFile = wordUploadFile.getMultipartFile();
-            String name = multipartFile.getName();
-            String contentType = multipartFile.getOriginalFilename();
-            String fileName = multipartFile.getOriginalFilename();
-            File file = new File("e:/ExaminationSystem/word/"+fileName);
-            multipartFile.transferTo(file);
-        } catch (IOException e) {
+            wordFilePath = fileService.uploadWordFile(multipartFile);
+        } catch (URISyntaxException e) {
             throw new CustomException(e.getMessage(),e);
         }
-        return null;
+        return wordFilePath!=null?"上传成功":"上传失败";
     }
 
 }
