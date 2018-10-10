@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jms="http://www.springframework.org/schema/jms"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd">
+	
+	<!-- 注解支持 -->
+	<jms:annotation-driven></jms:annotation-driven>
+
+	<context:component-scan
+		base-package="com.cjx913.es.activemq" />
+
+	<bean id="jmsConnectionFactory"
+		class="org.apache.activemq.pool.PooledConnectionFactory"
+		destroy-method="stop">
+		<property name="connectionFactory">
+			<bean class="org.apache.activemq.ActiveMQConnectionFactory">
+				<property name="userName" value="cjx913" />
+				<property name="password" value="cjx913" />
+				<property name="brokerURL">
+					<value>tcp://localhost:61616</value>
+				</property>
+				<!--只允许指定的包里的类对象能够被传输,ObjectMessage -->
+				<property name="trustedPackages">
+					<list>
+						<value>java.lang</value>
+						<value>com.cjx913.es.entity</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="maxConnections" value="10" />
+	</bean>
+
+	<bean id="messageConverter"
+		class="org.springframework.jms.support.converter.SimpleMessageConverter"></bean>
+
+	<bean id="jmsQueueTemplate"
+		class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+		<property name="pubSubDomain" value="false" />
+		<property name="messageConverter" ref="messageConverter" />
+	</bean>
+
+	<bean id="jmsTopicTemplate"
+		class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+		<property name="pubSubDomain" value="true" />
+		<property name="messageConverter" ref="messageConverter" />
+	</bean>
+
+	<bean id="queueMessageListenerContainer"
+		class="org.springframework.jms.config.DefaultJmsListenerContainerFactory">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+		<property name="pubSubDomain" value="false"></property>
+		<property name="messageConverter" ref="messageConverter"></property>
+	</bean>
+
+	<bean id="topicMessageListenerContainer"
+		class="org.springframework.jms.config.DefaultJmsListenerContainerFactory">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+		<property name="pubSubDomain" value="true"></property>
+		<property name="messageConverter" ref="messageConverter"></property>
+	</bean>
+
+</beans>
