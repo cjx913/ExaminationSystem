@@ -1,8 +1,11 @@
 package com.cjx913.es.service.impl;
 
+import com.cjx913.es.entity.persistent.Paper;
+import com.cjx913.es.entity.persistent.PaperFile;
 import com.cjx913.es.exception.CustomException;
 import com.cjx913.es.mapper.PaperMapper;
 import com.cjx913.es.service.FileService;
+import com.cjx913.es.service.PaperService;
 import com.cjx913.es.utils.CustomWordToPdfUtil;
 import com.cjx913.es.utils.WordToPdfUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,25 +31,19 @@ public class FileServiceImpl implements FileService {
     @Value("${out_word_dir_path}")
     private String outWordDirPath;
     @Autowired
-    private PaperMapper paperMapper;
-    @Autowired
     private CustomWordToPdfUtil customWordToPdfUtil;
 
     @Override
-    public String uploadWordFile(String fileName, InputStream is) throws IOException {
-
-        int index = fileName.lastIndexOf(".");
-        String fileNameWithoutSuffix = fileName.substring(0, index);
-        String fileSuffixName = fileName.substring(index);
+    public String uploadWordFile(String wordFileName, InputStream is) throws IOException {
         if (!outWordDirPath.endsWith("/")) {
             outWordDirPath = outWordDirPath + "/";
         }
         if (!Files.exists(Paths.get(outWordDirPath))) {
             Files.createDirectories(Paths.get(outWordDirPath));
         }
-        String filePath = outWordDirPath + fileNameWithoutSuffix + "-" + System.currentTimeMillis() + fileSuffixName;
-        Files.copy(is, Paths.get(filePath));
-        return filePath;
+        String wordPath = outWordDirPath +wordFileName;
+        Files.copy(is, Paths.get(wordPath));
+        return wordPath;
     }
 
     @Override

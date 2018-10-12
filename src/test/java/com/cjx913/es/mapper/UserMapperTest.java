@@ -2,17 +2,12 @@ package com.cjx913.es.mapper;
 
 
 import com.cjx913.es.SpringTest;
-import com.cjx913.es.entity.domain.Pagination;
 import com.cjx913.es.entity.domain.ScoreList;
 import com.cjx913.es.entity.persistent.Permission;
 import com.cjx913.es.entity.persistent.Role;
 import com.cjx913.es.entity.persistent.User;
-import com.cjx913.es.mapper.UserMapper;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.HashMap;
 import java.util.List;

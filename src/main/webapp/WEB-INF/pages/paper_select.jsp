@@ -98,7 +98,7 @@
         created: function () {
             var self=this;
             $.get(
-                '${pageContext.request.contextPath}/exam/getPapers/${subjectId}',
+                '${pageContext.request.contextPath}/exam/getAllPapers/${subjectId}',
                 function (response,status,xhr) {
                     self.papers = response;
                     self.selectedPaperId = self.papers[0].id;

@@ -1,7 +1,10 @@
 package com.cjx913.es.controller;
 
+import com.cjx913.es.entity.persistent.Paper;
+import com.cjx913.es.entity.persistent.PaperFile;
 import com.cjx913.es.exception.CustomException;
 import com.cjx913.es.service.FileService;
+import com.cjx913.es.service.PaperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Controller;
@@ -26,6 +29,8 @@ public class PaperController {
     @Autowired
     private FileService fileService;
     @Autowired
+    private PaperService paperService;
+    @Autowired
     private TaskExecutor taskExecutor;
 
 
@@ -39,15 +44,24 @@ public class PaperController {
     public String uploadPaper(@RequestParam("upload") MultipartFile multipartFile) throws CustomException {
 
         try {
-            String filename = multipartFile.getOriginalFilename();
-            if (!filename.endsWith(".docx") && !filename.endsWith(".doc")) {
+            String fileName = multipartFile.getOriginalFilename();
+            int index = fileName.lastIndexOf(".");
+            String fileNameWithoutSuffix = fileName.substring(0, index);
+            String fileSuffixName = fileName.substring(index);
+            if (!fileSuffixName.equals(".docx") && !fileSuffixName.equals(".doc")) {
                 return "上传失败!文件类型错误";
             }
+            String wordFileName = fileNameWithoutSuffix + "-" + System.currentTimeMillis() + fileSuffixName;
+            //保存文件
+            String wordPath = fileService.uploadWordFile(wordFileName, multipartFile.getInputStream());
 
-            final String wordFilePath = fileService.uploadWordFile(multipartFile.getOriginalFilename(), multipartFile.getInputStream());
-            return wordFilePath != null ? "上传成功" : "上传失败";
-        } catch (IOException | URISyntaxException | ExecutionException | InterruptedException e) {
-            throw new CustomException(e.getMessage(), e);
+            //写到数据库
+            Paper paper = new Paper();
+            paperService.savePaperWithWordPath(paper,wordPath);
+
+           return "上传成功";
+        } catch (IOException e) {
+            throw new CustomException("上传失败，系统错误", e);
         }
     }
 

@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.cjx913.es.entity.domain.Pagination;
 import com.cjx913.es.entity.persistent.Permission;
 import com.cjx913.es.entity.persistent.Role;
 import com.cjx913.es.entity.domain.ScoreList;

@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cjx913.es.mapper.PaperMapper">
-
+    <!--<insert id="insertPaper" parameterType="paper">-->
+            <!--&lt;!&ndash;useGeneratedKeys="true" keyProperty="id" keyColumn="id"&ndash;&gt;-->
+        <!--<selectKey resultType="java.lang.String" keyColumn="id" keyProperty="id" order="BEFORE">-->
+            <!--select replace(uuid(), '-', '') as id from dual-->
+        <!--</selectKey>-->
+        <!--insert into t_paper(id, subject_id, name, panduanti, danxuanti, duoxuanti,tiankongti,jiedati)-->
+        <!--values (#{id},#{subjectId},#{name},#{panduanti},#{danxuanti},#{duoxuanti},#{tiankongti},#{jiedati})-->
+    <!--</insert>-->
 
 
 </mapper>

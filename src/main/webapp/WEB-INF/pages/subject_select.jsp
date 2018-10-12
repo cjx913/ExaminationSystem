@@ -22,14 +22,14 @@
         <img src="${pageContext.request.contextPath}/images/kaoshikemu.png"  class="img-fluid"/>
     </div>
 
-    <div id="selectSubject" class="row">
+    <div id="selectSubject" class="row" style="min-height: 400px">
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 border border-primary rounded" style="padding-top:20px;padding-left:25px;height: 100px;"
         v-for="subject in subjects">
             <div>
                 <img src="${pageContext.request.contextPath}/images/icon_pen.png" style="height: 44px;width: auto;"/>
                 <a :href="'${pageContext.request.contextPath}/exam/selectPaper/'+subject.id"><span><strong>{{subject.name}}</strong></span></a>
             </div>
-            <div style="margin-top:5px;background-color: #9fcdff">共有{{subject.num}}份试题</div>
+            <div style="margin-top:5px;background-color: #9fcdff">共有{{subject.paperCount}}份试题</div>
         </div>
     </div>
 </div>
@@ -48,7 +48,7 @@ var selectSubject = new Vue({
     created:function () {
         var self=this;
         $.get(
-            '${pageContext.request.contextPath}/exam/getAllSubject',
+            '${pageContext.request.contextPath}/exam/getAllSubjects',
             function (response,status,xhr) {
                 self.subjects = response;
             },

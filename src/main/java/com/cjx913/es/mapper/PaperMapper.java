@@ -1,10 +1,8 @@
 package com.cjx913.es.mapper;
 
 import com.cjx913.es.entity.persistent.Paper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import com.cjx913.es.entity.persistent.PaperFile;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
@@ -30,4 +28,20 @@ public interface PaperMapper {
             "from t_paper as p,t_paper_file as pf",
             "where p.subject_id=#{subjectId} and p.id=#{paperId} and p.id=pf.paper_id"})
     Map <String, Object> selectPaperNameAndPdfPathBySubjectIdAndPaperId(@Param("subjectId") String subjectId, @Param("paperId") String paperId);
+
+    @SelectKey(keyColumn = "id", keyProperty = "id", resultType = String.class, before = true,
+            statement = "select replace(uuid(), '-', '') as id from dual")
+    @Insert({" insert into t_paper(id, subject_id, name, panduanti, danxuanti, duoxuanti,tiankongti,jiedati)",
+            "values (#{id},#{subjectId},#{name},#{panduanti},#{danxuanti},#{duoxuanti},#{tiankongti},#{jiedati})"})
+    Integer insertPaper(Paper paper);
+
+    @Insert(value = {"insert into t_paper_file(paper_id,word_path)",
+            "values(#{paperId},#{wordPath})"})
+    Integer insertPaperWordPath(PaperFile paperFile);
+
+    @Insert(value = {"insert into t_paper_file(paper_id,pdf_path)",
+            "values(#{paperId},#{pdfPath})"})
+    Integer insertPaperPdfPath(PaperFile paperFile);
+
+
 }

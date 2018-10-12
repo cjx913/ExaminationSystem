@@ -1,6 +1,5 @@
 package com.cjx913.es.mapper;
 
-import com.cjx913.es.entity.domain.Pagination;
 import com.cjx913.es.entity.domain.ScoreList;
 import com.cjx913.es.entity.persistent.Permission;
 import com.cjx913.es.entity.persistent.Role;

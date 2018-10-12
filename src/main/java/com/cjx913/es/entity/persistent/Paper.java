@@ -13,6 +13,17 @@ public class Paper {
     public Paper() {
     }
 
+    public Paper(String id, String subjectId, String name, int panduanti, int danxuanti, int duoxuanti, int tiankongti, int jiedati) {
+        this.id = id;
+        this.subjectId = subjectId;
+        this.name = name;
+        this.panduanti = panduanti;
+        this.danxuanti = danxuanti;
+        this.duoxuanti = duoxuanti;
+        this.tiankongti = tiankongti;
+        this.jiedati = jiedati;
+    }
+
     public String getId() {
         return id;
     }

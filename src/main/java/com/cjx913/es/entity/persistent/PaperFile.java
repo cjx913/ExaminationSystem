@@ -5,8 +5,18 @@ public class PaperFile {
     private String wordPath;
     private String pdfPath;
 
-    public PaperFile(String paperId) {
+    public PaperFile() {
+    }
+
+    public PaperFile(String paperId, String wordPath) {
         this.paperId = paperId;
+        this.wordPath = wordPath;
+    }
+
+    public PaperFile(String paperId, String wordPath, String pdfPath) {
+        this.paperId = paperId;
+        this.wordPath = wordPath;
+        this.pdfPath = pdfPath;
     }
 
     public String getPaperId() {

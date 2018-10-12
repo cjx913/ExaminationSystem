@@ -116,7 +116,7 @@
 <script>
     $(function () {
         $.ajax({
-            url: '${pageContext.request.contextPath}/paper/get',
+            url: '${pageContext.request.contextPath}/exam/getPaper/${subjectId}/${paperId}',
             type: 'get',
             // data:JSON.stringify(data),
             contentType: 'application/x-www-form-urlencoded',
