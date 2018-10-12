@@ -2,6 +2,7 @@ package com.cjx913.es.Service;
 
 import com.cjx913.es.SpringTest;
 import com.cjx913.es.entity.domain.ScoreList;
+import com.cjx913.es.entity.persistent.Permission;
 import com.cjx913.es.entity.persistent.User;
 import com.cjx913.es.service.UserService;
 import org.junit.Test;
@@ -26,8 +27,14 @@ public class UserServiceTest extends SpringTest {
 
     @Test
     public void findScoreListPaginationAndSearch(){
-        List <ScoreList> list = userService.findScoreListPaginationAndSearch("2000001", 1l, 4l, "", "");
+        List <ScoreList> list = userService.findScoreListByUserIdPaginationAndSearch("2000001", 1l, 4l, "", "");
         assert list!=null&&list.size()>0;
+    }
+
+    @Test
+    public void findPermissionsByUserId(){
+        List<Permission> permissions = userService.findPermissionsByUserId("0000000");
+        assert permissions!=null;
     }
 
 }

@@ -37,13 +37,13 @@ public class UserMapperTest extends SpringTest {
 
     @Test
     public void findPermissionsByUserId(){
-        List<Permission> permissions = userMapper.selectPermissionsByUserId("2000001");
+        List<Permission> permissions = userMapper.selectPermissionsByUserId("0000000");
         assert permissions!=null;
     }
 
     @Test
     public void selectRolesByUserId(){
-        List<Role>  roles = userMapper.selectRolesByUserId("2000001");
+        List<Role>  roles = userMapper.selectRolesByUserId("1000000");
         assert roles!=null;
     }
 
@@ -57,8 +57,18 @@ public class UserMapperTest extends SpringTest {
         map.put("size",3);
         map.put("searchText",null);
         map.put("order","asc".toUpperCase());
-        List <ScoreList> scoreLists = userMapper.selectScoreListPaginationAndSearch(map);
+        List <ScoreList> scoreLists = userMapper.selectScoreListByUserIdPaginationAndSearch(map);
         assert scoreLists!=null&&scoreLists.size()>0;
+    }
+
+    @Test
+    public void selectAllScoreCountByUserIdPaginationAndSearch(){
+        Map<String,Object> map = new HashMap <>();
+        map.put("userId","2000001");
+        map.put("searchText","CET-6");
+        map.put("order","asc".toUpperCase());
+        Integer count = userMapper.selectAllScoreCountByUserIdPaginationAndSearch(map);
+        assert count!=null;
     }
 
 }

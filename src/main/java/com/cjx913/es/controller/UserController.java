@@ -3,6 +3,7 @@ package com.cjx913.es.controller;
 import java.util.*;
 
 import com.cjx913.es.entity.domain.ScoreList;
+import com.cjx913.es.entity.domain.UserIdentity;
 import com.cjx913.es.entity.persistent.User;
 import com.cjx913.es.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +27,14 @@ public class UserController {
 
     @RequestMapping("/getScoreList")
     @ResponseBody
-    public List <ScoreList> getScoreList(HttpSession session, Long start, Long size, String searchtext, String sortorder) {
-        String userId = ((User) session.getAttribute("user")).getId();
-        List <ScoreList> scoreList = userService.findScoreListPaginationAndSearch(userId, start, size, searchtext, sortorder);
-        return scoreList;
+    public Map<String ,Object> getScoreList(HttpSession session, Long start, Long size, String searchtext, String sortorder) {
+        String userId = ((UserIdentity) session.getAttribute("user")).getUserId();
+        List <ScoreList> scoreList = userService.findScoreListByUserIdPaginationAndSearch(userId, start, size, searchtext, sortorder);
+        Integer total = userService.findAllScoreCountByUserIdPaginationAndSearch(userId,searchtext, sortorder);
+        Map<String,Object> map = new HashMap <>();
+        map.put("rows",scoreList);
+        map.put("total",total);
+        return map;
     }
 
 }

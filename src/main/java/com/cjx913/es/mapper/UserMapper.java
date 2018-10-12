@@ -41,5 +41,7 @@ public interface UserMapper {
             "where user_id=#{userId})"})
     List <Role> selectRolesByUserId(String userId);
 
-    List <ScoreList> selectScoreListPaginationAndSearch(Map<String,Object> map);
+    List <ScoreList> selectScoreListByUserIdPaginationAndSearch(Map<String,Object> map);
+
+    Integer selectAllScoreCountByUserIdPaginationAndSearch(Map<String, Object> map);
 }

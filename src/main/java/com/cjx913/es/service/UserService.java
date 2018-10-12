@@ -18,5 +18,7 @@ public interface UserService {
 
     List <Role> findRolesByUserId(String userId) throws CustomException;
 
-    List<ScoreList> findScoreListPaginationAndSearch(String userId, Long start, Long size, String searchtext, String sortorder);
+    List<ScoreList> findScoreListByUserIdPaginationAndSearch(String userId, Long start, Long size, String searchtext, String sortorder);
+
+    Integer findAllScoreCountByUserIdPaginationAndSearch(String userId, String searchtext, String sortorder);
 }

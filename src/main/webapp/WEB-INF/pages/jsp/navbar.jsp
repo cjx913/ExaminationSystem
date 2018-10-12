@@ -17,7 +17,7 @@
                         <a class="nav-link" href="${pageContext.request.contextPath}/exam/selectSubject">在线考试</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/exam/consultScore">成绩查询</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/user/consultScore">成绩查询</a>
                     </li>
                 </ul>
             </div>

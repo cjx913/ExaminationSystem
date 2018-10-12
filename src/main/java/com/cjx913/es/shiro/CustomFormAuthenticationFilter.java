@@ -8,6 +8,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.cjx913.es.entity.domain.UserIdentity;
 import com.cjx913.es.exception.ValidationException;
 import com.cjx913.es.service.UserService;
 
@@ -104,8 +105,10 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
 	@Override
 	protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request,
 			ServletResponse response) throws Exception {
-
-		return super.onLoginSuccess(token, subject, request, response);
+        HttpSession session = ((HttpServletRequest) request).getSession();
+        UserIdentity userIdentity = (UserIdentity) subject.getPrincipal();
+        session.setAttribute("user",userIdentity);
+        return super.onLoginSuccess(token, subject, request, response);
 	}
     
     

@@ -47,14 +47,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List <ScoreList> findScoreListPaginationAndSearch(String userId, Long start, Long size, String searchtext, String sortorder) {
+    public List <ScoreList> findScoreListByUserIdPaginationAndSearch(String userId, Long start, Long size, String searchtext, String sortorder) {
         Map<String,Object> map = new HashMap <>();
         map.put("userId",userId);
         map.put("start",start-1);
         map.put("size",size);
         map.put("searchText",searchtext);
         map.put("order",sortorder);
-        return userMapper.selectScoreListPaginationAndSearch(map);
+        return userMapper.selectScoreListByUserIdPaginationAndSearch(map);
+    }
+
+    @Override
+    public Integer findAllScoreCountByUserIdPaginationAndSearch(String userId, String searchtext, String sortorder) {
+        Map<String,Object> map = new HashMap <>();
+        map.put("userId",userId);
+        map.put("searchText",searchtext);
+        map.put("order",sortorder);
+        return userMapper.selectAllScoreCountByUserIdPaginationAndSearch(map);
     }
 
 }

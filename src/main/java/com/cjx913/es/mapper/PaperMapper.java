@@ -15,8 +15,8 @@ public interface PaperMapper {
             @Result(column = "paperCount", property = "paperCount", javaType = int.class),
     })
     @Select({"select s.id,s.name,s.avaliable,count(p.id) as paperCount",
-            "from t_subject as s,t_paper as p",
-            "where s.id=p.subject_id",
+            "from t_subject as s left outer join t_paper as p",
+            "on s.id=p.subject_id",
             "group by s.id"})
     List <Map <String, Object>> selectAllSubjectsWithPaperCount();
 
@@ -45,8 +45,8 @@ public interface PaperMapper {
 
 
     @Select({"select id,subject_Id as subjectId,name,panduanti,danxuanti,duoxuanti,tiankongti,jiedati",
-    "from t_paper",
-    "where subject_id=#{subjectId} and id=#{paperId}"})
-    Paper selectPaperBySubjectIdAndPaperId(@Param("subjectId") String subjectId,@Param("paperId") String paperId);
+            "from t_paper",
+            "where subject_id=#{subjectId} and id=#{paperId}"})
+    Paper selectPaperBySubjectIdAndPaperId(@Param("subjectId") String subjectId, @Param("paperId") String paperId);
 
 }

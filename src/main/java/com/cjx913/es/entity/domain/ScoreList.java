@@ -8,9 +8,9 @@ public class ScoreList {
     private String id;
     private String subjectName;
     private String paperName;
-    @JsonFormat(locale = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date commitTime;
-    @JsonFormat(locale = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date evaluationTime;
     private int score;
 

@@ -109,7 +109,7 @@
                 },
                 {
                     title: '考试时间',
-                    field: 'examTime',
+                    field: 'commitTime',
                     // formatter: function (value, row, index, field) {
                     //
                     //     return new Date(value);

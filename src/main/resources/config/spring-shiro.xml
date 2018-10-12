@@ -35,6 +35,11 @@
     <!-- securityManager安全管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="authenticator" ref="authenticator"/>
+        <property name="realms">
+                <list>
+                    <ref bean="customRealm"/>
+                </list>
+        </property>
         <!-- 注入缓存管理器 -->
         <property name="cacheManager" ref="cacheManager"/>
         <!-- 注入session管理器 -->
@@ -58,11 +63,7 @@
     </bean>
 
     <bean id="authenticator" class="org.apache.shiro.authc.pam.ModularRealmAuthenticator">
-        <property name="realms">
-            <list>
-                <ref bean="customRealm"/>
-            </list>
-        </property>
+
     </bean>
 
     <!-- 自定义Form表单的身份验证过滤器-->
@@ -97,26 +98,26 @@
         </property>
         <!-- 过虑器链定义，从上向下顺序执行，一般将/**放在最下边 -->
         <property name="filterChainDefinitions">
-            <!--<value>-->
-                <!--/=anon-->
-                <!--&lt;!&ndash;对静态资源设置匿名访问 &ndash;&gt;-->
-                <!--/images/** = anon-->
-                <!--/js/** = anon-->
-                <!--/css/** = anon-->
-                <!--/index=anon-->
-                <!--/toLogin=anon-->
-                <!--&lt;!&ndash;&lt;!&ndash; /login= my_authc &ndash;&gt;&ndash;&gt;-->
-                 <!--&lt;!&ndash;请求 logout地址，shiro去清除session&ndash;&gt;-->
-                <!--/logout = logout-->
-                <!--&lt;!&ndash;配置记住我或认证通过可以访问的地址 &ndash;&gt;-->
-                <!--/user/** = user-->
-                <!--/admin/** = user-->
-              <!--&lt;!&ndash;/** = authc 所有url都必须认证通过才可以访问&ndash;&gt;-->
-                <!--/** = my_authc-->
-            <!--</value>-->
             <value>
-                /** = anon
+                /=anon
+                <!--对静态资源设置匿名访问 -->
+                /images/** = anon
+                /js/** = anon
+                /css/** = anon
+                /index=anon
+                /toLogin=anon
+                <!--&lt;!&ndash; /login= my_authc &ndash;&gt;-->
+                 <!--请求 logout地址，shiro去清除session-->
+                /logout = logout
+                <!--配置记住我或认证通过可以访问的地址 -->
+                /user/** = user
+                /admin/** = user
+              <!--/** = authc 所有url都必须认证通过才可以访问-->
+                /** = my_authc
             </value>
+            <!--<value>-->
+                <!--/** = anon-->
+            <!--</value>-->
         </property>
     </bean>
 </beans>

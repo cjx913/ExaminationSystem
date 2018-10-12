@@ -26,8 +26,9 @@
 <body>
 <%@ include file="/WEB-INF/pages/jsp/navbar.jsp" %>
 <div class="container-fluid" style="padding:0;">
-    <div class="row no-gutters" style="height: 600px">
-        <div id="questionArea" class="col-12 col-sm-12 col-md  h-100" style=" margin:0px;padding:0px;overflow:auto;display:block;">
+    <div class="row no-gutters" style="height: 750px">
+        <div id="questionArea" class="col-12 col-sm-12 col-md  h-100"
+             style=" margin:0px;padding:0px;overflow:auto;display:block;">
             <%--<object class="w-100 h-100" type="application/pdf"
                     src="${pageContext.request.contextPath}/paper/getPaper">
                 <span>This browser does not support PDFs.</span>
@@ -42,11 +43,11 @@
         <div id="answerArea" class="col col-sm col-md-5 h-100" style="overflow-y: auto">
             <div class="container no-gutters">
                 <div class="row justify-content-center">
-                   <h3 class="text-center"> <span >{{paperName}}（答题区）</span></h3>
+                    <h3 class="text-center"><span>{{paperName}}（答题区）</span></h3>
                 </div>
                 <div class="row" v-if="panduanti>0"><h5>判断题</h5></div>
                 <div class="row" v-if="panduanti>0">
-                    <div class="col-auto"  v-for="(item,index) in panduanti" v-if="index<panduanti">
+                    <div class="col-auto" v-for="(item,index) in panduanti" v-if="index<panduanti">
                         <form>
                             <span>{{index+1}}:</span>
                             <label class="radio-inline"><input type="radio" name="optradio">√</label>
@@ -110,6 +111,13 @@
                         </form>
                     </div>
                 </div>
+                <div class="row  justify-content-center">
+                    <div class="col-10" style="padding-bottom: 20px">
+                        <button type="button" class="btn btn-success btn-block">
+                            <span>提&nbsp;&nbsp;交</span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -128,7 +136,7 @@
             dataType: 'json',
             success: function (result, status) {
                 initAnswerArea(result.paper);
-                initQuestionArea(result.data,"questionArea");
+                initQuestionArea(result.data, "questionArea");
 
             }
         });
@@ -172,22 +180,20 @@
             console.error(reason);
         });
     }
-    
-    
+
+
     function initAnswerArea(paper) {
         var answerArea = new Vue({
-            el:'#answerArea',
-            data:{
-                paperName:paper.name,
-                panduanti:paper.panduanti,
-                danxuanti:paper.danxuanti,
-                duoxuanti:paper.duoxuanti,
-                tiankongti:paper.tiankongti,
-                jiedati:paper.jiedati
+            el: '#answerArea',
+            data: {
+                paperName: paper.name,
+                panduanti: paper.panduanti,
+                danxuanti: paper.danxuanti,
+                duoxuanti: paper.duoxuanti,
+                tiankongti: paper.tiankongti,
+                jiedati: paper.jiedati
             },
-            methods:{
-
-            }
+            methods: {}
         });
     }
 
