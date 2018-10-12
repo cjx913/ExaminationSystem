@@ -42,7 +42,7 @@
         <div id="answerArea" class="col col-sm col-md-5 h-100" style="overflow-y: auto">
             <div class="container no-gutters">
                 <div class="row justify-content-center">
-                   <h3> <span>{{paperName}}</span></h3>
+                   <h3 class="text-center"> <span >{{paperName}}（答题区）</span></h3>
                 </div>
                 <div class="row" v-if="panduanti>0"><h5>判断题</h5></div>
                 <div class="row" v-if="panduanti>0">
@@ -55,7 +55,7 @@
                     </div>
                 </div>
 
-                <div class="row" v-if="danxuanti>0"><h5>选择题</h5></div>
+                <div class="row" v-if="danxuanti>0"><h5>单选题</h5></div>
                 <div class="row" v-if="danxuanti>0">
                     <div class="col-auto" v-for="(item,index) in danxuanti" v-if="index<danxuanti">
                         <form>
@@ -127,8 +127,9 @@
             contentType: 'application/x-www-form-urlencoded',
             dataType: 'json',
             success: function (result, status) {
-                initQuestionArea(result.data,"questionArea");
                 initAnswerArea(result.paper);
+                initQuestionArea(result.data,"questionArea");
+
             }
         });
     });
