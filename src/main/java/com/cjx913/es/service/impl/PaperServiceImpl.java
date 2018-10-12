@@ -41,4 +41,9 @@ public class PaperServiceImpl implements PaperService {
         assert paperFile!=null;
         return paper;
     }
+
+    @Override
+    public Paper findPaperBySubjectIdAndPaperId(String subjectId, String paperId) {
+        return paperMapper.selectPaperBySubjectIdAndPaperId(subjectId,paperId);
+    }
 }

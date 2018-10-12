@@ -44,4 +44,10 @@ public class PaperMapperTest extends SpringTest {
         paperMapper.insertPaperWordPath(paperFile);
         assert paperFile!=null;
     }
+
+    @Test
+    public void selectPaperBySubjectIdAndPaperId(){
+        Paper paper = paperMapper.selectPaperBySubjectIdAndPaperId("312","123");
+        assert paper!=null;
+    }
 }

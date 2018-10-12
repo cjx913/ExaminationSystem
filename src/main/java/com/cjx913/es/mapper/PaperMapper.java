@@ -44,4 +44,9 @@ public interface PaperMapper {
     Integer insertPaperPdfPath(PaperFile paperFile);
 
 
+    @Select({"select id,subject_Id as subjectId,name,panduanti,danxuanti,duoxuanti,tiankongti,jiedati",
+    "from t_paper",
+    "where subject_id=#{subjectId} and id=#{paperId}"})
+    Paper selectPaperBySubjectIdAndPaperId(@Param("subjectId") String subjectId,@Param("paperId") String paperId);
+
 }

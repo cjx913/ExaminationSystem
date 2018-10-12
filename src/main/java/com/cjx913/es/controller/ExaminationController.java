@@ -67,7 +67,8 @@ public class ExaminationController {
             result.put("data", data);
 
             //
-
+            Paper paper = paperService.findPaperBySubjectIdAndPaperId(subjectId,paperId);
+            result.put("paper",paper);
 
             return result;
         } catch (IOException e) {

@@ -15,4 +15,6 @@ public interface PaperService {
     Map<String, Object> findPaperNameAndPdfPathBySubjectIdAndPaperId(String subjectId, String paperId);
 
     Paper savePaperWithWordPath(Paper paper, String wordPath);
+
+    Paper findPaperBySubjectIdAndPaperId(String subjectId, String paperId);
 }
