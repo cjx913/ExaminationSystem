@@ -8,6 +8,13 @@ public class User {
     private String salt;
     private int locked;
 
+    public User() {
+    }
+
+    public User(String userId) {
+        this.id = userId;
+    }
+
 
     public String getId() {
         return id;

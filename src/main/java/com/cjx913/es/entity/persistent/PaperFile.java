@@ -5,6 +5,10 @@ public class PaperFile {
     private String wordPath;
     private String pdfPath;
 
+    public PaperFile(String paperId) {
+        this.paperId = paperId;
+    }
+
     public String getPaperId() {
         return paperId;
     }

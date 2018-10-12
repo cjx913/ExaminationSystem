@@ -16,13 +16,10 @@ import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
 
 @Service
 @Transactional
@@ -36,19 +33,19 @@ public class FileServiceImpl implements FileService {
     private CustomWordToPdfUtil customWordToPdfUtil;
 
     @Override
-    public String uploadWordFile(String fileName, InputStream is) throws  IOException {
+    public String uploadWordFile(String fileName, InputStream is) throws IOException {
 
         int index = fileName.lastIndexOf(".");
         String fileNameWithoutSuffix = fileName.substring(0, index);
         String fileSuffixName = fileName.substring(index);
-        if(!outWordDirPath.endsWith("/")){
-            outWordDirPath = outWordDirPath+"/";
+        if (!outWordDirPath.endsWith("/")) {
+            outWordDirPath = outWordDirPath + "/";
         }
         if (!Files.exists(Paths.get(outWordDirPath))) {
             Files.createDirectories(Paths.get(outWordDirPath));
         }
         String filePath = outWordDirPath + fileNameWithoutSuffix + "-" + System.currentTimeMillis() + fileSuffixName;
-        Files.copy(is,Paths.get(filePath));
+        Files.copy(is, Paths.get(filePath));
         return filePath;
     }
 

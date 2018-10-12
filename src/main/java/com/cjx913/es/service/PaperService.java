@@ -1,16 +1,15 @@
 package com.cjx913.es.service;
 
 import com.cjx913.es.entity.persistent.Paper;
-import com.cjx913.es.entity.view.PaperVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PaperService {
-    List<PaperVO> findAllSubjectsWithPaperCount();
+
+    List<Map<String, Object>> findAllSubjectsWithPaperCount();
 
     List<Paper> findAllPapersBySubjectId(String subjectId);
 
-    PaperVO findPaperWithPdfPathBySubjectIdAndPaperId(String subjectId, String paperId);
-
-    PaperVO findPaperNameAndPdfPathBySubjectIdAndPaperId(String subjectId, String paperId);
+    Map<String, Object> findPaperNameAndPdfPathBySubjectIdAndPaperId(String subjectId, String paperId);
 }

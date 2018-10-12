@@ -50,7 +50,7 @@ public class CustomRealm extends AuthorizingRealm {
 
         // 第二步：根据用户输入的userCode从数据库查询
         User user = null;
-        user = userService.findUserByUsername(username);
+        user = userService.findUserByName(username);
 
 
         // 如果查询不到返回null

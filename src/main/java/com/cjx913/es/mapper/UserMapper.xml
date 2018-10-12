@@ -1,88 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.cjx913.es.mapper.UserMapper" >
+<mapper namespace="com.cjx913.es.mapper.UserMapper">
 
-    <resultMap id="UserResultMap" type="user" >
-        <id column="id" property="id" jdbcType="VARCHAR" />
-        <result column="account" property="account" jdbcType="VARCHAR" />
-        <result column="name" property="name" jdbcType="VARCHAR" />
-        <result column="password" property="password" jdbcType="VARCHAR" />
-        <result column="salt" property="salt" jdbcType="VARCHAR" />
-        <result column="locked" property="locked" jdbcType="TINYINT" />
-    </resultMap>
+    <select id="selectScoreListPaginationAndSearch" resultType="scoreList">
+        select sc.id as id,su.name as subjectName,p.name as paperName,
+        sc.commit_time as commitTime,sc.evaluation_time as evaluationTime,sc.score as score
+        from t_score as sc,t_subject as su,t_paper as p
+        where sc.user_id=#{userId} and sc.subject_id=su.id and sc.paper_id=p.id
 
-    <resultMap id="RoleResultMap" type="role">
-        <id  column="id" property="id"/>
-        <result column="name" property="name"/>
-        <result column="available" property="available"/>
-    </resultMap>
 
-    <resultMap id="PermissionResultMap" type="permission">
-        <id  column="id" property="id"/>
-        <result column="name" property="name"/>
-        <result column="url" property="url"/>
-        <result column="available" property="available"/>
-    </resultMap>
-
-    <resultMap id="UserVO" type="userVO">
-        <result column="user_id" property="userId" />
-        <result column="user_account" property="userAccount"  />
-        <result column="user_name" property="userName" />
-        <result column="user_password" property="userPassword" />
-        <result column="user_salt" property="userSalt" />
-        <result column="user_locked" property="userLocked" />
-
-        <result  column="role_id" property="roleId"/>
-        <result column="role_name" property="roleName"/>
-        <result column="role_available" property="roleAvailable"/>
-
-        <result  column="permission_id" property="permissionId"/>
-        <result column="permission_Name" property="permissionName"/>
-        <result column="permission_url" property="permissionUrl"/>
-        <result column="permission_available" property="permissionAvailable"/>
-    </resultMap>
-
-    <!--User-->
-    <select id="selectAllUser" resultMap="UserResultMap">
-        select id,account,name,password,salt,locked
-        from sys_user
-    </select>
-
-    <select id="selectUserByUsername" parameterType="string" resultMap="UserResultMap">
-        select id,account,name,password,salt,locked
-        from sys_user
-        where name=#{name}
-    </select>
-    
-    <select id="selectUserByAccount" resultType="string" resultMap="UserResultMap">
-        select id,account,name,password,salt,locked
-        from sys_user
-        where account=#{account}
-    </select>
-
-    <insert id="insetUser" parameterType="user">
-    	<selectKey keyProperty="id" resultType="string" order="BEFORE">
-    		select replace(uuid(), '-', '') as id from dual
-    	</selectKey>
-        insert into sys_user(id, account, name, password, salt, locked)
-        values (#{id},#{account},#{name},#{password},#{salt},#{locked})
-    </insert>
-
-    <!--Role-->
-    <select id="selectRolesByUserId" parameterType="string" resultMap="RoleResultMap">
-        SELECT id,name,available
-        from sys_role,sys_user_role
-        where id = role_id and user_id=#{userId}
+        <if test="searchText!=null and searchText!=''">
+            and (sc.id like '%${searchText}%'
+            or su.name like '%${searchText}%'
+            or p.name like '%${searchText}%'
+            or sc.commit_time like '%${searchText}%'
+            or sc.evaluation_time like '%${searchText}%'
+            or sc.score like '%${searchText}%')
+        </if>
+        <if test="order!=null and order!=''">
+            order by sc.commit_time ${order}
+        </if>
+        <if test="start!=null and size!=null">
+            limit ${start},${size}
+        </if>
     </select>
 
 
-    <!--Permission-->
-    <select id="selectPermissionsByUserId" parameterType="string" resultMap="PermissionResultMap">
-        SELECT id,name,url,available
-        from sys_permission,sys_role_permission
-        where role_id=id AND role_id in
-        (select role_id
-        from sys_user_role
-        where user_id = #{userId})
-    </select>
 </mapper>

@@ -1,7 +1,6 @@
 package com.cjx913.es.service.impl;
 
 import com.cjx913.es.entity.persistent.Paper;
-import com.cjx913.es.entity.view.PaperVO;
 import com.cjx913.es.mapper.PaperMapper;
 import com.cjx913.es.service.PaperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,14 +8,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
 public class PaperServiceImpl implements PaperService {
     @Autowired
     private PaperMapper paperMapper;
+
     @Override
-    public List<PaperVO> findAllSubjectsWithPaperCount() {
+    public List <Map<String, Object>> findAllSubjectsWithPaperCount() {
         return paperMapper.selectAllSubjectsWithPaperCount();
     }
 
@@ -26,20 +27,7 @@ public class PaperServiceImpl implements PaperService {
     }
 
     @Override
-    public PaperVO findPaperWithPdfPathBySubjectIdAndPaperId(String subjectId, String paperId) {
-        PaperVO paperVO = new PaperVO();
-        paperVO.setSubjectId(subjectId);
-        paperVO.setPaperId(paperId);
-        return paperMapper.selectPaperBySubjectIdAndPaperId(paperVO);
+    public Map <String, Object> findPaperNameAndPdfPathBySubjectIdAndPaperId(String subjectId, String paperId) {
+        return paperMapper.selectPaperNameAndPdfPathBySubjectIdAndPaperId(subjectId,paperId);
     }
-
-    @Override
-    public PaperVO findPaperNameAndPdfPathBySubjectIdAndPaperId(String subjectId, String paperId) {
-        PaperVO paperVO = new PaperVO();
-        paperVO.setSubjectId(subjectId);
-        paperVO.setPaperId(paperId);
-        return paperMapper.selectPaperNameAndPdfPathBySubjectIdAndPaperId(paperVO);
-    }
-
-
 }

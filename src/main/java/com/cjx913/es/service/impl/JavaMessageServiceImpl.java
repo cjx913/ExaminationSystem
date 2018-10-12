@@ -25,22 +25,22 @@ public class JavaMessageServiceImpl  implements JavaMessageService {
     @Autowired
     private JmsTemplate jmsTopicTemplate;
 
-    @Autowired
-    private CustomWebSocketHandler customWebSocketHandler;
+//    @Autowired
+//    private CustomWebSocketHandler customWebSocketHandler;
 
     @Override
     public void snedMessageToPublicTopic(Serializable message) throws CustomException {
         jmsTopicTemplate.convertAndSend("publicTopic", message);
     }
 
-    @Override
-    @JmsListener(containerFactory = TOPIC_MESSAGE_LISTENER_CONTAINER, destination = "publicTopic")
-    public void receiveMessageFromPublicTopic(Serializable message) throws CustomException {
-        if (message instanceof CustomMessage) {
-            CustomMessage customMessage = (CustomMessage) message;
-            customWebSocketHandler.sendMessageToClient(customMessage);
-        }
-    }
+//    @Override
+//    @JmsListener(containerFactory = TOPIC_MESSAGE_LISTENER_CONTAINER, destination = "publicTopic")
+//    public void receiveMessageFromPublicTopic(Serializable message) throws CustomException {
+//        if (message instanceof CustomMessage) {
+//            CustomMessage customMessage = (CustomMessage) message;
+//            customWebSocketHandler.sendMessageToClient(customMessage);
+//        }
+//    }
 
     @Override
     @JmsListener(containerFactory = QUEUE_MESSAGE_LISTENER_CONTAINER, destination = "publicQueue")

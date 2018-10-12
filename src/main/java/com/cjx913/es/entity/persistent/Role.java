@@ -13,7 +13,6 @@ public class Role {
     private int avaliable;
 
     public Role() {
-
     }
 
     public Role(String id, String name, int avaliable) {

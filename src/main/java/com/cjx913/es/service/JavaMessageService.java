@@ -13,10 +13,10 @@ public interface JavaMessageService {
 
 	public static final String QUEUE_MESSAGE_LISTENER_CONTAINER  ="queueMessageListenerContainer";
 	public static final String TOPIC_MESSAGE_LISTENER_CONTAINER  ="topicMessageListenerContainer";
-	
+
 	public abstract void snedMessageToPublicTopic(Serializable message) throws CustomException;
 
-	public abstract void receiveMessageFromPublicTopic(Serializable message) throws CustomException;
+//	public abstract void receiveMessageFromPublicTopic(Serializable message) throws CustomException;
 
 	public void receiveMsg(String msg);
 }

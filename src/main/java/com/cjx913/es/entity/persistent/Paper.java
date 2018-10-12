@@ -10,6 +10,9 @@ public class Paper {
     private int tiankongti;
     private int jiedati;
 
+    public Paper() {
+    }
+
     public String getId() {
         return id;
     }

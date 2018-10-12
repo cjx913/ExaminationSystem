@@ -1,16 +1,33 @@
 package com.cjx913.es.mapper;
 
 import com.cjx913.es.entity.persistent.Paper;
-import com.cjx913.es.entity.view.PaperVO;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PaperMapper {
-    List<PaperVO> selectAllSubjectsWithPaperCount();
+    @Results(id = "subjectWithPaperCount", value = {
+            @Result(column = "id", property = "id", javaType = String.class),
+            @Result(column = "name", property = "name", javaType = String.class),
+            @Result(column = "avaliable", property = "avaliable", javaType = String.class),
+            @Result(column = "paperCount", property = "paperCount", javaType = int.class),
+    })
+    @Select({"select s.id,s.name,s.avaliable,count(p.id) as paperCount",
+            "from t_subject as s,t_paper as p",
+            "where s.id=p.subject_id",
+            "group by s.id"})
+    List <Map <String, Object>> selectAllSubjectsWithPaperCount();
 
-    List<Paper> selectAllPapersBySubjectId(String subjectId);
+    @Select({"select id,subject_id as subjectId,name,panduanti,danxuanti,duoxuanti,tiankongti,jiedati",
+            "from t_paper where subject_id=#{subjectId}"})
+    List <Paper> selectAllPapersBySubjectId(String subjectId);
 
-    PaperVO selectPaperBySubjectIdAndPaperId(PaperVO paperVO);
-
-    PaperVO selectPaperNameAndPdfPathBySubjectIdAndPaperId(PaperVO paperVO);
+    @Select({"select p.name as paperName,pf.pdf_path as pdfPath",
+            "from t_paper as p,t_paper_file as pf",
+            "where p.subject_id=#{subjectId} and p.id=#{paperId} and p.id=pf.paper_id"})
+    Map <String, Object> selectPaperNameAndPdfPathBySubjectIdAndPaperId(@Param("subjectId") String subjectId, @Param("paperId") String paperId);
 }

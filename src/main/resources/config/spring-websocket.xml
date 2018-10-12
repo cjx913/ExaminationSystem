@@ -6,22 +6,22 @@
        xmlns:websocket="http://www.springframework.org/schema/websocket"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
-    <bean id="customWebSocketHandler" class="com.cjx913.es.websocket.CustomWebSocketHandler"></bean>
+    <!--<bean id="customWebSocketHandler" class="com.cjx913.es.websocket.CustomWebSocketHandler"></bean>-->
 
-    <websocket:handlers>
-        <websocket:mapping handler="customWebSocketHandler" path="/myWebscoket"/>
-        <websocket:handshake-interceptors>
-            <bean class="com.cjx913.es.websocket.CustomWebSocketHandshakeInterceptor"></bean>
-        </websocket:handshake-interceptors>
-    </websocket:handlers>
-    <!--兼容低版本浏览器-->
-    <websocket:handlers>
-        <websocket:mapping handler="customWebSocketHandler" path="/sockjs/myWebscoket"/>
-        <websocket:handshake-interceptors>
-            <bean class="com.cjx913.es.websocket.CustomWebSocketHandshakeInterceptor"></bean>
-        </websocket:handshake-interceptors>
-        <websocket:sockjs/>
-    </websocket:handlers>
+    <!--<websocket:handlers>-->
+        <!--<websocket:mapping handler="customWebSocketHandler" path="/myWebscoket"/>-->
+        <!--<websocket:handshake-interceptors>-->
+            <!--<bean class="com.cjx913.es.websocket.CustomWebSocketHandshakeInterceptor"></bean>-->
+        <!--</websocket:handshake-interceptors>-->
+    <!--</websocket:handlers>-->
+    <!--&lt;!&ndash;兼容低版本浏览器&ndash;&gt;-->
+    <!--<websocket:handlers>-->
+        <!--<websocket:mapping handler="customWebSocketHandler" path="/sockjs/myWebscoket"/>-->
+        <!--<websocket:handshake-interceptors>-->
+            <!--<bean class="com.cjx913.es.websocket.CustomWebSocketHandshakeInterceptor"></bean>-->
+        <!--</websocket:handshake-interceptors>-->
+        <!--<websocket:sockjs/>-->
+    <!--</websocket:handlers>-->
 
 
 </beans>

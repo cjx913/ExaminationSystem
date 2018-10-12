@@ -3,14 +3,17 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-	<!--设置全局运行参数 -->
-	<!-- <settings> &lt;!&ndash;启用延迟加载&ndash;&gt; <setting name="lazyLoadingEnabled" 
-		value="true"/> <setting name="aggressiveLazyLoading" value="false"/> &lt;!&ndash;开启二级缓存&ndash;&gt; 
-		<setting name="cacheEnabled" value="true"/> </settings> -->
+    <!--设置全局运行参数 -->
+    <!-- <settings> &lt;!&ndash;启用延迟加载&ndash;&gt; <setting name="lazyLoadingEnabled"
+        value="true"/> <setting name="aggressiveLazyLoading" value="false"/> &lt;!&ndash;开启二级缓存&ndash;&gt;
+        <setting name="cacheEnabled" value="true"/> </settings> -->
+    <settings>
+        <setting name="jdbcTypeForNull" value="NULL"/>
+    </settings>
 
-	<!--设置别名 -->
-	<typeAliases>
-		<package name="com.cjx913.es.entity" /><!--默认别名是类名,不区分大小写 -->
-	</typeAliases>
+    <!--设置别名 -->
+    <!--<typeAliases>-->
+    <!--<package name="com.cjx913.es.entity" />&lt;!&ndash;默认别名是类名,不区分大小写 &ndash;&gt;-->
+    <!--</typeAliases>-->
 
 </configuration>

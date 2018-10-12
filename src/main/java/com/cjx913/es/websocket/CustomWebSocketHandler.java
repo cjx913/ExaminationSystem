@@ -35,7 +35,7 @@ public class CustomWebSocketHandler extends AbstractWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage textMessage) throws Exception {
-    	
+
         CustomMessage customMessage = JSON.parseObject(textMessage.getPayload(), CustomMessage.class);
         sendMessageToServer(customMessage);
     }
