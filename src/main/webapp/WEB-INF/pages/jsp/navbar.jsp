@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
-<div class="container-fluid" style="padding: 0;min-width: 576px">
+<div class="container-fluid" style="padding: 0">
     <div class="row no-gutters text-white">
         <nav class="col navbar navbar-expand-md bg-dark navbar-dark ">
             <!-- Brand -->

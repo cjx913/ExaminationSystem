@@ -4,8 +4,70 @@
 <head>
     <meta charset="utf-8"/>
     <title>管理</title>
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/bootstrap.css"/>
+    <script src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
+    <script src="${pageContext.request.contextPath}/js/popper.js"></script>
+    <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
+    <style>
+    </style>
 </head>
 <body>
+<div id="container" class="container-fluid" style="padding: 0px;padding-bottom: 10px">
+    <div class="row no-gutters justify-content-center bg-info">
+        <div class="col-auto">
+            <h2>在线考试系统后台管理</h2>
+        </div>
+    </div>
+    <div class="row no-gutters">
+        <div id="leftMenu" class="col-auto"
+             　 style="margin-right:10px;box-shadow: 5px 5px 2px #aaa;">
+            <div>
+                <ul>
+                    <li><a href="${pageContext.request.contextPath}/">首页</a></li>
+                    <li data-toggle="collapse" data-target="#collapse_manage"><a
+                            href="#">管理</a></li>
+                    <div id="collapse_manage" class="collapse">
+                        <ul>
+                            <li><a href="#"
+                                   onclick="meunClick('${pageContext.request.contextPath}/index')">用户管理</a>
+                            </li>
+                            <li data-toggle="collapse" data-target="#collapse_exam_manage"><a
+                                    href="#">考试管理</a></li>
+                            <div id="collapse_exam_manage" class="collapse">
+                                <ul>
+                                    <li><a href="#"
+                                           onclick="meunClick('${pageContext.request.contextPath}/user/consultScore')">科目管理</a>
+                                    </li>
+                                    <li><a href="${pageContext.request.contextPath}/#">试题管理</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/#">成绩管理</a></li>
+                                </ul>
+                            </div>
+                            <li><a href="${pageContext.request.contextPath}/#" target="content">消息发布</a></li>
+                        </ul>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <div class="col" id="rightContent" >
+        </div>
+    </div>
+</div>
+</div>
 
+
+<script>
+
+    function meunClick(url) {
+        $.ajax({
+            url: url,
+            success: function (result, status) {
+                $('#rightContent').html(result);
+            }
+        });
+    }
+
+
+</script>
 </body>
 </html>

@@ -27,7 +27,7 @@
 
 <div class="container-fluid" style="padding: 0">
     <div class="row no-gutters justify-content-center">
-        <div class="col" style="min-width: 996px;">
+        <div class="col">
             <img class="img-fluid"
                  src="${pageContext.request.contextPath}/images/index01.png"/>
         </div>
@@ -35,22 +35,22 @@
 </div>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-10" style="min-width: 756px;">
+        <div class="col-10">
             <img class="img-fluid" src="${pageContext.request.contextPath}/images/index02.png"/>
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-10" style="min-width: 756px;">
+        <div class="col-10"">
             <img class="img-fluid" src="${pageContext.request.contextPath}/images/index03.png"/>
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-10" style="min-width: 756px;">
+        <div class="col-10">
             <img class="img-fluid" src="${pageContext.request.contextPath}/images/index04.png"/>
         </div>
     </div>
     <div class="row  justify-content-center">
-        <div class="col-10" style="min-width: 756px;">
+        <div class="col-10">
             <button type="button" class="btn btn-success btn-block"
             onclick="window.location.href='${pageContext.request.contextPath}/exam/selectSubject'">
                 立&nbsp;&nbsp;即&nbsp;&nbsp;考&nbsp;&nbsp;试</button>

@@ -60,7 +60,7 @@ public class SystemController {
 
     @RequestMapping("/toRegister")
     public String toRegister(HttpSession session) throws CustomException{
-//        session.invalidate();
+        session.invalidate();
         return "register";
     }
 

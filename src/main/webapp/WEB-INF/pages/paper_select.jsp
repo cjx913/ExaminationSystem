@@ -12,14 +12,14 @@
 </head>
 <body>
 <%@include file="/WEB-INF/pages/jsp/navbar.jsp" %>
-<div class="container" style="min-width: 756px">
-    <div class="row" style="margin-top: 30px">
-        <img src="${pageContext.request.contextPath}/images/xuanzekaoshishijuan.png"
-             class="img-fluid"/>
+<div class="container" style="padding: 0">
+
+    <div class="row no-gutters" style="margin-top: 30px">
+        <div class="w-100">
+            <img class="img-fluid" src="${pageContext.request.contextPath}/images/xuanzekaoshishijuan.png"/>
+        </div>
     </div>
-
-
-    <div id="selectPapers" class="row  jumbotron" style="margin-bottom:0 ">
+    <div id="selectPapers" class="row no-gutters  jumbotron" style="margin-bottom:0 ">
         <label for="select" class="input-group-prepend col-auto">请选择试卷:</label></span>
         <select id="select" class="form-control col" v-model="selectedPaperId" >
             <option v-for="paper in papers" :value="paper.id">{{paper.name}}</option>
@@ -27,7 +27,7 @@
         <button type="button" class=" col-auto input-group-append btn btn-success" @click="startExam">　开　始　考　试　</button>
     </div>
 
-    <div class="row">
+    <div class="row no-gutters">
         <div id="accordion" class="col" style="padding: 0">
             <div class="card">
                 <div class="card-header">

@@ -19,11 +19,13 @@
 <body>
 <%@ include file="/WEB-INF/pages/jsp/navbar.jsp" %>
 
-<div class="container" style="min-width: 756px">
-    <div class="row" style="margin-top: 30px">
-        <img src="${pageContext.request.contextPath}/images/kaoshengchengjidan.png"
-             class="img-fluid"/>
+<div class="container" >
+    <div class="row no-gutters" style="margin-top: 30px">
+        <div class="w-100">
+            <img class="img-fluid" src="${pageContext.request.contextPath}/images/kaoshengchengjidan.png"/>
+        </div>
     </div>
+
     <div class="row" style="margin-top: 30px">
         <img src="${pageContext.request.contextPath}/images/chengjiliebiao.png" class="img-fluid"/>
     </div>

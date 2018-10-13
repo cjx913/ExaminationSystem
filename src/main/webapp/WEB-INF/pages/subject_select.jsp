@@ -13,18 +13,20 @@
 <body>
 <%@include file="/WEB-INF/pages/jsp/navbar.jsp" %>
 
-<div class="container" style="min-width: 756px">
-    <div class="row" style="margin-top: 30px">
-        <img src="${pageContext.request.contextPath}/images/xuanzekaoshikemu.png"
-             class="img-fluid"/>
+<div class="container" style="padding: 0px">
+    <div class="row no-gutters" style="margin-top: 30px">
+        <div class="w-100">
+            <img class="img-fluid" src="${pageContext.request.contextPath}/images/xuanzekaoshikemu.png"/>
+        </div>
     </div>
-    <div class="row" style="margin-top: 30px">
-        <img src="${pageContext.request.contextPath}/images/kaoshikemu.png"  class="img-fluid"/>
+    <div class="row no-gutters" style="margin-top: 30px">
+        <img src="${pageContext.request.contextPath}/images/kaoshikemu.png" class="img-fluid"/>
     </div>
 
-    <div id="selectSubject" class="row" style="min-height: 400px">
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 border border-primary rounded" style="padding-top:20px;padding-left:25px;height: 100px;"
-        v-for="subject in subjects">
+    <div id="selectSubject" class="row no-gutters">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 border border-primary rounded"
+             style="padding-top:20px;padding-left:25px;height: 100px;"
+             v-for="subject in subjects">
             <div>
                 <img src="${pageContext.request.contextPath}/images/icon_pen.png" style="height: 44px;width: auto;"/>
                 <a :href="'${pageContext.request.contextPath}/exam/selectPaper/'+subject.id"><span><strong>{{subject.name}}</strong></span></a>
@@ -37,25 +39,23 @@
 <%@include file="/WEB-INF/pages/jsp/footer.jsp" %>
 
 <script>
-var selectSubject = new Vue({
-    el:'#selectSubject',
-    data:{
-        subjects:''
-    },
-    methods:{
-
-    },
-    created:function () {
-        var self=this;
-        $.get(
-            '${pageContext.request.contextPath}/exam/getAllSubjects',
-            function (response,status,xhr) {
-                self.subjects = response;
-            },
-            'json'
-        );
-    }
-});
+    var selectSubject = new Vue({
+        el: '#selectSubject',
+        data: {
+            subjects: ''
+        },
+        methods: {},
+        created: function () {
+            var self = this;
+            $.get(
+                '${pageContext.request.contextPath}/exam/getAllSubjects',
+                function (response, status, xhr) {
+                    self.subjects = response;
+                },
+                'json'
+            );
+        }
+    });
 </script>
 </body>
 </html>
