@@ -3,6 +3,7 @@ package com.cjx913.es.mapper;
 
 import com.cjx913.es.SpringTest;
 import com.cjx913.es.entity.domain.ScoreList;
+import com.cjx913.es.entity.domain.UserIdentity;
 import com.cjx913.es.entity.persistent.Permission;
 import com.cjx913.es.entity.persistent.Role;
 import com.cjx913.es.entity.persistent.User;
@@ -31,7 +32,7 @@ public class UserMapperTest extends SpringTest {
 
     @Test
     public void selectUserByName(){
-        User user = userMapper.findUserByName("cjx913");
+        User user = userMapper.selectUserByName("cjx913");
         assert user!=null;
     }
 
@@ -51,8 +52,6 @@ public class UserMapperTest extends SpringTest {
     public void selectScoreListPaginationAndSearch(){
         Map<String,Object> map = new HashMap <>();
         map.put("userId","2000001");
-//        Pagination pagination = new Pagination(1l, 3l, null, "asc");
-//        map.put("pagination",pagination);
         map.put("start",0);
         map.put("size",3);
         map.put("searchText",null);
@@ -67,8 +66,25 @@ public class UserMapperTest extends SpringTest {
         map.put("userId","2000001");
         map.put("searchText","CET-6");
         map.put("order","asc".toUpperCase());
-        Integer count = userMapper.selectAllScoreCountByUserIdPaginationAndSearch(map);
+        Integer count = userMapper.selectAllScoreCountByUserIdSearch(map);
         assert count!=null;
+    }
+    
+    @Test
+    public void selectAllUserIdentitiesPaginationAndSearch(){
+        Map<String,Object> map = new HashMap <>();
+        map.put("start",0);
+        map.put("size",10);
+        map.put("searchText",null);
+        map.put("order",null);
+        List <UserIdentity> userIdentities = userMapper.selectAllUserIdentitiesWithPermissionAndRolesPaginationAndSearch(map);
+        assert userIdentities!=null&&userIdentities.size()>0;
+
+        for(UserIdentity userIdentity:userIdentities){
+            List <Permission> permissions = userIdentity.getPermissions();
+            System.out.println( permissions!=null);
+        }
+
     }
 
 }

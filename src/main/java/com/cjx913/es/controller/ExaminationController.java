@@ -25,7 +25,7 @@ public class ExaminationController {
 
     @RequestMapping("/selectSubject")
     public String selectSubject() {
-        return "subject_select";
+        return "exam/subject_select";
     }
 
     @GetMapping("/getAllSubjects")
@@ -37,7 +37,7 @@ public class ExaminationController {
 
     @RequestMapping("/selectPaper/{subjectId}")
     public String selectPaper(@ModelAttribute @PathVariable(name = "subjectId") String subjectId) {
-        return "paper_select";
+        return "exam/paper_select";
     }
 
     @GetMapping("/getAllPapers/{subjectId}")
@@ -51,7 +51,7 @@ public class ExaminationController {
     public String exam(
             @ModelAttribute @PathVariable(name = "subjectId") String subjectId,
             @ModelAttribute @PathVariable(name = "paperId") String paperId) {
-        return "exam";
+        return "exam/exam";
     }
 
     @RequestMapping("/getPaper/{subjectId}/{paperId}")

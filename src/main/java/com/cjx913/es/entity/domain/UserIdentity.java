@@ -1,6 +1,7 @@
 package com.cjx913.es.entity.domain;
 
 import com.cjx913.es.entity.persistent.Permission;
+import com.cjx913.es.entity.persistent.Role;
 
 import java.io.Serializable;
 import java.security.Principal;
@@ -16,6 +17,7 @@ public class UserIdentity implements Principal ,Serializable {
     private String username;// 用户名称
 
     private List<Permission> permissions;// 权限
+    private List<Role> roles;
 
 
     public String getUserId() {
@@ -52,6 +54,13 @@ public class UserIdentity implements Principal ,Serializable {
         this.permissions = permissions;
     }
 
+    public List <Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List <Role> roles) {
+        this.roles = roles;
+    }
 
     @Override
     public String getName() {

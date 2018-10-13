@@ -4,11 +4,16 @@
 <head>
     <meta charset="utf-8"/>
     <title>管理</title>
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/css/bootstrap.css"/>
-    <script src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
-    <script src="${pageContext.request.contextPath}/js/popper.js"></script>
-    <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-table.css"/>
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.css"/>
+
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/popper.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-table.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-table-zh-CN.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/vue.js"></script>
     <style>
     </style>
 </head>
@@ -30,7 +35,7 @@
                     <div id="collapse_manage" class="collapse">
                         <ul>
                             <li><a href="#"
-                                   onclick="meunClick('${pageContext.request.contextPath}/index')">用户管理</a>
+                                   onclick="meunClick('${pageContext.request.contextPath}/admin/userManage')">用户管理</a>
                             </li>
                             <li data-toggle="collapse" data-target="#collapse_exam_manage"><a
                                     href="#">考试管理</a></li>

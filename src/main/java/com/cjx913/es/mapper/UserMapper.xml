@@ -2,6 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cjx913.es.mapper.UserMapper">
 
+    <resultMap id="UserIdentityWithPermissionAndRoleMap" type="userIdentity">
+        <id column="id" property="userId"/>
+        <result column="account" property="account"/>
+        <result column="name" property="username"/>
+        <collection property="permissions" javaType="list" column="id" select="selectPermissionsByUserId"/>
+        <collection property="roles" javaType="list" column="id" select="selectRolesByUserId"/>
+    </resultMap>
+
     <select id="selectScoreListByUserIdPaginationAndSearch" resultType="scoreList">
         select sc.id as id,su.name as subjectName,p.name as paperName,
         sc.commit_time as commitTime,sc.evaluation_time as evaluationTime,sc.score as score
@@ -25,20 +33,50 @@
         </if>
     </select>
 
-    <select id="selectAllScoreCountByUserIdPaginationAndSearch" parameterType="map" resultType="Integer">
+    <select id="selectAllScoreCountByUserIdSearch" parameterType="map" resultType="Integer">
         select count(sc.id) as count
         from t_score as sc,t_subject as su,t_paper as p
         where sc.user_id=#{userId} and sc.subject_id=su.id and sc.paper_id=p.id
         <if test="searchText!=null and searchText!=''">
-            and (sc.id like binary  '%${searchText}%'
-            or su.name like binary  '%${searchText}%'
-            or p.name like binary  '%${searchText}%'
-            or sc.commit_time like binary  '%${searchText}%'
-            or sc.evaluation_time like binary  '%${searchText}%'
-            or sc.score like binary  '%${searchText}%')
+            and (sc.id like binary '%${searchText}%'
+            or su.name like binary '%${searchText}%'
+            or p.name like binary '%${searchText}%'
+            or sc.commit_time like binary '%${searchText}%'
+            or sc.evaluation_time like binary '%${searchText}%'
+            or sc.score like binary '%${searchText}%')
         </if>
         <if test="order!=null and order!=''">
             order by sc.commit_time ${order}
+        </if>
+    </select>
+
+    <select id="selectAllUserIdentitiesWithPermissionAndRolesPaginationAndSearch" parameterType="map"
+            resultMap="UserIdentityWithPermissionAndRoleMap">
+        select id,account,name
+        from sys_user
+        <if test="searchText!=null and searchText!=''">
+            where id like binary '%${searchText}%'
+            or name like binary '%${searchText}%'
+            or account like binary '%${searchText}%'
+        </if>
+        <if test="order!=null and order!=''">
+            order by name ${order}
+        </if>
+        <if test="start!=null and size!=null">
+            limit ${start},${size}
+        </if>
+    </select>
+
+    <select id="selectAllUserIdentitiesCountSearch" parameterType="map" resultType="Integer">
+        select count(id) as count
+        from sys_user
+        <if test="searchText!=null and searchText!=''">
+            where id like binary '%${searchText}%'
+            or name like binary '%${searchText}%'
+            or account like binary '%${searchText}%'
+        </if>
+        <if test="order!=null and order!=''">
+            order by name ${order}
         </if>
     </select>
 

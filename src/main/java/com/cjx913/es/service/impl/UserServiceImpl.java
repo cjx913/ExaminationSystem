@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.cjx913.es.entity.domain.UserIdentity;
 import com.cjx913.es.entity.persistent.Permission;
 import com.cjx913.es.entity.persistent.Role;
 import com.cjx913.es.entity.domain.ScoreList;
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByName(String username) throws CustomException {
-        return userMapper.findUserByName(username);
+        return userMapper.selectUserByName(username);
     }
 
     @Override
@@ -63,7 +64,24 @@ public class UserServiceImpl implements UserService {
         map.put("userId",userId);
         map.put("searchText",searchtext);
         map.put("order",sortorder);
-        return userMapper.selectAllScoreCountByUserIdPaginationAndSearch(map);
+        return userMapper.selectAllScoreCountByUserIdSearch(map);
     }
 
+    @Override
+    public List <UserIdentity> findAllUserIdentitiesWithPermissionAndRolesPaginationAndSearch(Long start, Long size, String searchtext, String sortorder) {
+        Map<String,Object> map = new HashMap <>();
+        map.put("start",start-1);
+        map.put("size",size);
+        map.put("searchText",searchtext);
+        map.put("order",sortorder);
+        return userMapper.selectAllUserIdentitiesWithPermissionAndRolesPaginationAndSearch(map);
+    }
+
+    @Override
+    public Integer findAllUserIdentitiesCountSearch(String searchtext, String sortorder) {
+        Map<String,Object> map = new HashMap <>();
+        map.put("searchText",searchtext);
+        map.put("order",sortorder);
+        return userMapper.selectAllUserIdentitiesCountSearch(map);
+    }
 }

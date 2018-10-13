@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8"/>
     <title>查看成绩</title>
-    <%--<link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css"/>--%>
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css"/>
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-table.css"/>
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.css"/>
@@ -31,7 +30,7 @@
     </div>
 
     <div class="row">
-        <div class="container-fluid">
+        <div class="col-12">
             <div id="toolbar">
             </div>
             <table id="table">
@@ -85,7 +84,7 @@
             sidePagination: "server",
             pageNumber: 1,
             pageSize: 10,
-            pageList: [10, 15, 25, 50, 100, undefined],
+            pageList: [1,10, 15, 25, 50, 100],
 
             // 列
             columns: [

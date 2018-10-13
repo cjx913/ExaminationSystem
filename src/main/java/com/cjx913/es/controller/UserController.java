@@ -4,7 +4,6 @@ import java.util.*;
 
 import com.cjx913.es.entity.domain.ScoreList;
 import com.cjx913.es.entity.domain.UserIdentity;
-import com.cjx913.es.entity.persistent.User;
 import com.cjx913.es.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +21,7 @@ public class UserController {
 
     @RequestMapping("/consultScore")
     public String consultScore() {
-        return "score_consult";
+        return "user/score_consult";
     }
 
     @RequestMapping("/getScoreList")

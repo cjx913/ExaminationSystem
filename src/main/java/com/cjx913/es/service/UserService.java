@@ -1,5 +1,6 @@
 package com.cjx913.es.service;
 
+import com.cjx913.es.entity.domain.UserIdentity;
 import com.cjx913.es.entity.persistent.Permission;
 import com.cjx913.es.entity.persistent.Role;
 import com.cjx913.es.entity.domain.ScoreList;
@@ -21,4 +22,8 @@ public interface UserService {
     List<ScoreList> findScoreListByUserIdPaginationAndSearch(String userId, Long start, Long size, String searchtext, String sortorder);
 
     Integer findAllScoreCountByUserIdPaginationAndSearch(String userId, String searchtext, String sortorder);
+
+    List<UserIdentity> findAllUserIdentitiesWithPermissionAndRolesPaginationAndSearch(Long start, Long size, String searchtext, String sortorder);
+
+    Integer findAllUserIdentitiesCountSearch(String searchtext, String sortorder);
 }

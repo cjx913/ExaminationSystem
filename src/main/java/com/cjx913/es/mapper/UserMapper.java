@@ -1,13 +1,11 @@
 package com.cjx913.es.mapper;
 
 import com.cjx913.es.entity.domain.ScoreList;
+import com.cjx913.es.entity.domain.UserIdentity;
 import com.cjx913.es.entity.persistent.Permission;
 import com.cjx913.es.entity.persistent.Role;
 import com.cjx913.es.entity.persistent.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +15,7 @@ public interface UserMapper {
     @Select({"select id, account, name, password, salt, locked",
             "from sys_user",
             "where name=#{username}"})
-    User findUserByName(@Param("username") String username);
+    User selectUserByName(@Param("username") String username);
 
     @SelectKey(keyColumn = "id", keyProperty = "id", resultType = String.class, before = true,
             statement = "select replace(uuid(), '-', '') as id from dual")
@@ -25,7 +23,7 @@ public interface UserMapper {
             "values (#{id},#{account},#{name},#{password},#{salt},#{locked})"})
     void insetUser(User user);
 
-    @Select({"select id,name,url,available",
+    @Select(value = {"select id,name,url,available",
             "from sys_permission",
             "where id in",
             "(select rp.permission_id",
@@ -43,5 +41,9 @@ public interface UserMapper {
 
     List <ScoreList> selectScoreListByUserIdPaginationAndSearch(Map<String,Object> map);
 
-    Integer selectAllScoreCountByUserIdPaginationAndSearch(Map<String, Object> map);
+    Integer selectAllScoreCountByUserIdSearch(Map<String, Object> map);
+
+    List<UserIdentity> selectAllUserIdentitiesWithPermissionAndRolesPaginationAndSearch(Map<String, Object> map);
+
+    Integer selectAllUserIdentitiesCountSearch(Map<String, Object> map);
 }

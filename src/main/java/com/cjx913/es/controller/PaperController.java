@@ -1,7 +1,6 @@
 package com.cjx913.es.controller;
 
 import com.cjx913.es.entity.persistent.Paper;
-import com.cjx913.es.entity.persistent.PaperFile;
 import com.cjx913.es.exception.CustomException;
 import com.cjx913.es.service.FileService;
 import com.cjx913.es.service.PaperService;
@@ -14,13 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 @Controller
 @RequestMapping("/paper")
@@ -36,7 +28,7 @@ public class PaperController {
 
     @RequestMapping("/toPaperUpload")
     public String toPaperUpload() {
-        return "paper_upload";
+        return "manage/paper_upload";
     }
 
     @RequestMapping("/upload")
