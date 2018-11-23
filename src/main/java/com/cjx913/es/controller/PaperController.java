@@ -25,6 +25,11 @@ public class PaperController {
     @Autowired
     private TaskExecutor taskExecutor;
 
+    @RequestMapping("/manage")
+    public String manage(){
+        return "paper_manage";
+    }
+
 
     @RequestMapping("/toPaperUpload")
     public String toPaperUpload() {

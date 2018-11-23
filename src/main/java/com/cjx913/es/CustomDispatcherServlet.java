@@ -8,9 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public class CustomDispatcherServlet extends DispatcherServlet {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Override

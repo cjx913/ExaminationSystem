@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/es_sys_permission.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/es_sys_role.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/es_sys_role_permission.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/es_sys_user.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/es_sys_user_role.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/es_t_paper.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/es_t_paper_file.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/es_t_score.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/es_t_subject.sql" dialect="MySQL" />
+  </component>
+</project>

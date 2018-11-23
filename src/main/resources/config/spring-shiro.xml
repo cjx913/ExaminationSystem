@@ -105,6 +105,8 @@
                 /js/** = anon
                 /css/** = anon
                 /index=anon
+                /toRegister=anon
+                /register=anon
                 /toLogin=anon
                 <!--&lt;!&ndash; /login= my_authc &ndash;&gt;-->
                  <!--请求 logout地址，shiro去清除session-->

@@ -41,7 +41,8 @@
             &nbsp;&nbsp;&nbsp;&nbsp;
         </div>
         <div id="answerArea" class="col col-sm col-md-5 h-100" style="overflow-y: auto">
-            <div class="container no-gutters">
+
+            <div class="container no-gutters" v-if="paper!=null">
                 <div class="row justify-content-center">
                     <h3 class="text-center"><span>{{paperName}}（答题区）</span></h3>
                 </div>
@@ -186,6 +187,7 @@
         var answerArea = new Vue({
             el: '#answerArea',
             data: {
+                paper:paper,
                 paperName: paper.name,
                 panduanti: paper.panduanti,
                 danxuanti: paper.danxuanti,

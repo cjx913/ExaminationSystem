@@ -31,6 +31,11 @@ public class AdminController {
         return "manage/user_manage";
     }
 
+    @RequestMapping("/paperManage")
+    public String paperManage(){
+        return "manage/paper_manage";
+    }
+
     @RequestMapping("/getAllUserIdentities")
     @ResponseBody
     public Map<String, Object> getAllUsers( Long start, Long size, String searchtext, String sortorder){

@@ -1,11 +1,14 @@
 package com.cjx913.es.controller;
 
+import com.cjx913.es.entity.persistent.User;
 import com.cjx913.es.exception.CustomException;
 import com.cjx913.es.exception.ValidationException;
+import com.cjx913.es.service.UserService;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,10 +16,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Random;
 
 @Controller
 public class SystemController {
+    @Autowired
+    private UserService userService;
 	Logger log = LoggerFactory.getLogger(SystemController.class);
+
 
     @RequestMapping(value ={"/","/index"})
     public String index() {
@@ -60,14 +67,31 @@ public class SystemController {
 
     @RequestMapping("/toRegister")
     public String toRegister(HttpSession session) throws CustomException{
-        session.invalidate();
+//        session.invalidate();
         return "register";
     }
 
     @RequestMapping("/register")
-    public String register(HttpSession session) throws CustomException{
-
-        return "register";
+    public String register(HttpServletRequest request,String username,String email,String password,String randomCode,String validateCode) throws CustomException{
+        if(!randomCode.equalsIgnoreCase(validateCode)){
+            request.setAttribute("registerMessage","验证码错误!!!");
+            return "login";
+        }
+        if(userService.findUserByName(username)!=null){
+            request.setAttribute("registerMessage","用户名已存在!!!");
+            return "login";
+        }
+        User user = new User();
+        user.setName(username);
+        user.setPassword(password);
+        user.setAccount(String.valueOf((int)(10000000+Math.random()*100000000)));
+//        while (userService.findUserByAccount(user.getAccount())!=null){
+//            user.setAccount(String.valueOf((int)(10000000+Math.random()*100000000)));
+//        }
+        user.setSalt(user.getName()+user.getAccount());
+        userService.saveUser(user);
+        request.setAttribute("message","注册成功,请登录");
+        return "login";
     }
     
 

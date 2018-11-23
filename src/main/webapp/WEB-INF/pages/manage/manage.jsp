@@ -44,7 +44,9 @@
                                     <li><a href="#"
                                            onclick="meunClick('${pageContext.request.contextPath}/user/consultScore')">科目管理</a>
                                     </li>
-                                    <li><a href="${pageContext.request.contextPath}/#">试题管理</a></li>
+                                    <li><a href="#"
+                                           onclick="meunClick('${pageContext.request.contextPath}/admin/paperManage')">用户管理</a>
+                                    </li>
                                     <li><a href="${pageContext.request.contextPath}/#">成绩管理</a></li>
                                 </ul>
                             </div>

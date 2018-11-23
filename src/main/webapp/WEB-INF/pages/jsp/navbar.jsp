@@ -29,7 +29,7 @@
 
                 <shiro:notAuthenticated>
                     <a href="${pageContext.request.contextPath}/toLogin">登陆</a>
-                    <a href="${pageContext.request.contextPath}/toRegister">注册</a>
+                    <a href="${pageContext.request.contextPath}/toLogin#register">注册</a>
                 </shiro:notAuthenticated>
                 <shiro:authenticated>
                     <span>您好！<strong><shiro:principal property="username"/></strong></span>

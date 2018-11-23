@@ -38,7 +38,6 @@ public class PaperServiceImpl implements PaperService {
 
         PaperFile paperFile = new PaperFile(paper.getId(),wordPath);
         paperMapper.insertPaperWordPath(paperFile);
-        assert paperFile!=null;
         return paper;
     }
 
