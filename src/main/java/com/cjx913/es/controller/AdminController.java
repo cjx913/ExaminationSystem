@@ -1,7 +1,6 @@
 package com.cjx913.es.controller;
 
 import com.cjx913.es.entity.domain.UserIdentity;
-import com.cjx913.es.entity.persistent.User;
 import com.cjx913.es.service.UserService;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;

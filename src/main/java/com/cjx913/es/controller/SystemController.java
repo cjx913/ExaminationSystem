@@ -1,6 +1,6 @@
 package com.cjx913.es.controller;
 
-import com.cjx913.es.entity.persistent.User;
+import com.cjx913.es.entity.persistent.SysUser;
 import com.cjx913.es.exception.CustomException;
 import com.cjx913.es.exception.ValidationException;
 import com.cjx913.es.service.UserService;
@@ -11,12 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Random;
 
 @Controller
 public class SystemController {
@@ -81,15 +79,15 @@ public class SystemController {
             request.setAttribute("registerMessage","用户名已存在!!!");
             return "login";
         }
-        User user = new User();
-        user.setName(username);
-        user.setPassword(password);
-        user.setAccount(String.valueOf((int)(10000000+Math.random()*100000000)));
-//        while (userService.findUserByAccount(user.getAccount())!=null){
-//            user.setAccount(String.valueOf((int)(10000000+Math.random()*100000000)));
+        SysUser sysUser = new SysUser();
+        sysUser.setName(username);
+        sysUser.setPassword(password);
+        sysUser.setAccount(String.valueOf((int)(10000000+Math.random()*100000000)));
+//        while (userService.findUserByAccount(sysUser.getAccount())!=null){
+//            sysUser.setAccount(String.valueOf((int)(10000000+Math.random()*100000000)));
 //        }
-        user.setSalt(user.getName()+user.getAccount());
-        userService.saveUser(user);
+        sysUser.setSalt(sysUser.getName()+ sysUser.getAccount());
+        userService.saveUser(sysUser);
         request.setAttribute("message","注册成功,请登录");
         return "login";
     }

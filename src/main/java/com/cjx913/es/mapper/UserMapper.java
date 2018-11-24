@@ -1,10 +1,9 @@
 package com.cjx913.es.mapper;
 
-import com.cjx913.es.entity.domain.ScoreList;
 import com.cjx913.es.entity.domain.UserIdentity;
-import com.cjx913.es.entity.persistent.Permission;
-import com.cjx913.es.entity.persistent.Role;
-import com.cjx913.es.entity.persistent.User;
+import com.cjx913.es.entity.persistent.SysPermission;
+import com.cjx913.es.entity.persistent.SysRole;
+import com.cjx913.es.entity.persistent.SysUser;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -15,13 +14,13 @@ public interface UserMapper {
     @Select({"select id, account, name, password, salt, locked",
             "from sys_user",
             "where name=#{username}"})
-    User selectUserByName(@Param("username") String username);
+    SysUser selectUserByName(@Param("username") String username);
 
     @SelectKey(keyColumn = "id", keyProperty = "id", resultType = String.class, before = true,
             statement = "select replace(uuid(), '-', '') as id from dual")
     @Insert({" insert into sys_user(id, account, name, password, salt, locked)",
             "values (#{id},#{account},#{name},#{password},#{salt},#{locked})"})
-    void insetUser(User user);
+    void insetUser(SysUser sysUser);
 
     @Select(value = {"select id,name,url,available",
             "from sys_permission",
@@ -29,7 +28,7 @@ public interface UserMapper {
             "(select rp.permission_id",
             "from sys_role_permission as rp,sys_user_role as ur",
             "where rp.role_id=ur.role_id and ur.user_id=#{userId})"})
-    List <Permission> selectPermissionsByUserId(String userId);
+    List <SysPermission> selectPermissionsByUserId(String userId);
 
     @Select({"select id,name,avaliable",
             "from sys_role",
@@ -37,9 +36,9 @@ public interface UserMapper {
             "(select role_id",
             "from sys_user_role",
             "where user_id=#{userId})"})
-    List <Role> selectRolesByUserId(String userId);
+    List <SysRole> selectRolesByUserId(String userId);
 
-    List <ScoreList> selectScoreListByUserIdPaginationAndSearch(Map<String,Object> map);
+    List <Map<String,Object>> selectScoreListByUserIdPaginationAndSearch(Map<String,Object> map);
 
     Integer selectAllScoreCountByUserIdSearch(Map<String, Object> map);
 

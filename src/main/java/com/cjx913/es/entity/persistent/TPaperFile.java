@@ -1,19 +1,19 @@
 package com.cjx913.es.entity.persistent;
 
-public class PaperFile {
+public class TPaperFile {
     private String paperId;
     private String wordPath;
     private String pdfPath;
 
-    public PaperFile() {
+    public TPaperFile() {
     }
 
-    public PaperFile(String paperId, String wordPath) {
+    public TPaperFile(String paperId, String wordPath) {
         this.paperId = paperId;
         this.wordPath = wordPath;
     }
 
-    public PaperFile(String paperId, String wordPath, String pdfPath) {
+    public TPaperFile(String paperId, String wordPath, String pdfPath) {
         this.paperId = paperId;
         this.wordPath = wordPath;
         this.pdfPath = pdfPath;

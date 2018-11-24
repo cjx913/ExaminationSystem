@@ -1,9 +1,9 @@
 package com.cjx913.es.shiro;
 
 import com.cjx913.es.entity.domain.UserIdentity;
-import com.cjx913.es.entity.persistent.Permission;
-import com.cjx913.es.entity.persistent.Role;
-import com.cjx913.es.entity.persistent.User;
+import com.cjx913.es.entity.persistent.SysPermission;
+import com.cjx913.es.entity.persistent.SysRole;
+import com.cjx913.es.entity.persistent.SysUser;
 import com.cjx913.es.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -49,28 +49,28 @@ public class CustomRealm extends AuthorizingRealm {
         String username = (String) token.getPrincipal();
 
         // 第二步：根据用户输入的userCode从数据库查询
-        User user = null;
-        user = userService.findUserByName(username);
+        SysUser sysUser = null;
+        sysUser = userService.findUserByName(username);
 
 
         // 如果查询不到返回null
-        if (user == null) {
+        if (sysUser == null) {
             return null;
         }
         // 从数据库查询到密码
-        String password = user.getPassword();
+        String password = sysUser.getPassword();
 
         //盐
-        String salt = user.getSalt();
+        String salt = sysUser.getSalt();
 
         // 如果查询到返回认证信息AuthenticationInfo
 
         //userIdentity就是用户身份信息
         UserIdentity userIdentity = new UserIdentity();
 
-        userIdentity.setUserId(user.getId());
-        userIdentity.setAccount(user.getAccount());
-        userIdentity.setUsername(user.getName());
+        userIdentity.setUserId(sysUser.getId());
+        userIdentity.setAccount(sysUser.getAccount());
+        userIdentity.setUsername(sysUser.getName());
 
         //将activeUser设置simpleAuthenticationInfo
         SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(
@@ -90,23 +90,23 @@ public class CustomRealm extends AuthorizingRealm {
 
             //根据身份信息获取权限信息
             //从数据库获取到角色数据
-            List <Role> roles = userService.findRolesByUserId(userIdentity.getUserId());
+            List <SysRole> sysRoles = userService.findRolesByUserId(userIdentity.getUserId());
             List<String> roleList = new ArrayList <>();
-            if(roles!=null){
-                for(Role role:roles){
-                    roleList.add(role.getName());
+            if(sysRoles !=null){
+                for(SysRole sysRole : sysRoles){
+                    roleList.add(sysRole.getName());
                 }
             }
 
             //从数据库获取到权限数据
-            List <Permission> permissions = userService.findPermissionsByUserId(userIdentity.getUserId());
+            List <SysPermission> sysPermissions = userService.findPermissionsByUserId(userIdentity.getUserId());
 
             //单独定一个集合对象
             List <String> permissionList = new ArrayList <String>();
-            if (permissions != null) {
-                for (Permission permission : permissions) {
+            if (sysPermissions != null) {
+                for (SysPermission sysPermission : sysPermissions) {
                     //将数据库中的权限标签 符放入集合
-                    permissionList.add(permission.getName());
+                    permissionList.add(sysPermission.getName());
                 }
             }
 

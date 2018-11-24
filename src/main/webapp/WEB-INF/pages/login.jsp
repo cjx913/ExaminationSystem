@@ -56,7 +56,7 @@ box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19)
                 <div class="container">
                     <br>
                     <!-- Nav pills -->
-                    <ul class="nav nav-pills" role="tablist">
+                    <ul class="nav nav-pills" sysRole="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="pill" href="#accountLogin">账号登陆</a>
                         </li>

@@ -22,7 +22,7 @@
     <div id="selectPapers" class="row no-gutters  jumbotron" style="margin-bottom:0 ">
         <label for="select" class="input-group-prepend col-auto">请选择试卷:</label></span>
         <select id="select" class="form-control col" v-model="selectedPaperId" >
-            <option v-for="paper in papers" :value="paper.id">{{paper.name}}</option>
+            <option v-for="paper in papers" :value="paper.paperId">{{paper.paperName}}</option>
         </select>
         <button type="button" class=" col-auto input-group-append btn btn-success" @click="startExam">　开　始　考　试　</button>
     </div>
@@ -98,10 +98,10 @@
         created: function () {
             var self=this;
             $.get(
-                '${pageContext.request.contextPath}/exam/getAllPapers/${subjectId}',
+                '${pageContext.request.contextPath}/exam/getAllPapersBySubjectId/${subjectId}',
                 function (response,status,xhr) {
                     self.papers = response;
-                    self.selectedPaperId = self.papers[0].id;
+                    self.selectedPaperId = self.papers[1].id;
                 },
                 'json'
             );

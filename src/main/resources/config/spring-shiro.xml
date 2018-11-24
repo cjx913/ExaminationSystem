@@ -112,7 +112,7 @@
                  <!--请求 logout地址，shiro去清除session-->
                 /logout = logout
                 <!--配置记住我或认证通过可以访问的地址 -->
-                /user/** = user
+                /sysUser/** = user
                 /admin/** = user
               <!--/** = authc 所有url都必须认证通过才可以访问-->
                 /** = my_authc

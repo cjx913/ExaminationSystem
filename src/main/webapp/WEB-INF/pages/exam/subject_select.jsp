@@ -29,7 +29,7 @@
              v-for="subject in subjects">
             <div>
                 <img src="${pageContext.request.contextPath}/images/icon_pen.png" style="height: 44px;width: auto;"/>
-                <a :href="'${pageContext.request.contextPath}/exam/selectPaper/'+subject.id"><span><strong>{{subject.name}}</strong></span></a>
+                <a :href="'${pageContext.request.contextPath}/exam/selectPaper/'+subject.subjectId"><span><strong>{{subject.subjectName}}</strong></span></a>
             </div>
             <div style="margin-top:5px;background-color: #9fcdff">共有{{subject.paperCount}}份试题</div>
         </div>
@@ -48,7 +48,7 @@
         created: function () {
             var self = this;
             $.get(
-                '${pageContext.request.contextPath}/exam/getAllSubjects',
+                '${pageContext.request.contextPath}/exam/getAllSubjectsIdAndNamesWithPaperCount',
                 function (response, status, xhr) {
                     self.subjects = response;
                 },

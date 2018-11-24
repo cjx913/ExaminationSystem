@@ -67,7 +67,7 @@
             queryParams: function (params) {
                     return {
                         size: params.limit,
-                        start: params.offset + 1,
+                        start: params.offset,
                         searchtext: params.search,
                         sortorder: params.order
                     }
@@ -84,10 +84,15 @@
             sidePagination: "server",
             pageNumber: 1,
             pageSize: 10,
-            pageList: [1,10, 15, 25, 50, 100],
+            pageList: [5,10, 15, 25, 50, 100],
 
             // 列
             columns: [
+                {
+                    title:'id',
+                    field:'scoreId',
+                    visible:false
+                },
                 {
                     title: '序号',
                     formatter: function (value, row, index, field) {
@@ -109,23 +114,13 @@
                     align: 'left',
                 },
                 {
-                    title: '考试时间',
-                    field: 'commitTime',
-                    // formatter: function (value, row, index, field) {
-                    //
-                    //     return new Date(value);
-                    // },
-                    halign: "center",
-                    align: 'center',
-                },
-                {
                     title: '成绩',
                     field: 'score',
                     halign: "center",
                     align: 'center',
                 }
             ],
-            uniqueId: 'id',
+            uniqueId: 'paperId',
             //事件
             //先触发列事件再触发行时间
             /*点击某一列触发的事件*/

@@ -5,10 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.cjx913.es.entity.domain.UserIdentity;
-import com.cjx913.es.entity.persistent.Permission;
-import com.cjx913.es.entity.persistent.Role;
-import com.cjx913.es.entity.domain.ScoreList;
-import com.cjx913.es.entity.persistent.User;
+import com.cjx913.es.entity.persistent.SysPermission;
+import com.cjx913.es.entity.persistent.SysRole;
+import com.cjx913.es.entity.persistent.SysUser;
 import com.cjx913.es.exception.CustomException;
 import com.cjx913.es.mapper.UserMapper;
 import com.cjx913.es.service.UserService;
@@ -26,37 +25,38 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User findUserByName(String username) throws CustomException {
+    public SysUser findUserByName(String username) throws CustomException {
         return userMapper.selectUserByName(username);
     }
 
     @Override
-    public void saveUser(User user) throws CustomException {
-        String password = new Md5Hash(user.getPassword(), user.getSalt(), 1).toString();
-        user.setPassword(password);
-        userMapper.insetUser(user);
+    public void saveUser(SysUser sysUser) throws CustomException {
+        String password = new Md5Hash(sysUser.getPassword(), sysUser.getSalt(), 1).toString();
+        sysUser.setPassword(password);
+        userMapper.insetUser(sysUser);
     }
 
     @Override
-    public List <Permission> findPermissionsByUserId(String userId) {
+    public List <SysPermission> findPermissionsByUserId(String userId) {
         return userMapper.selectPermissionsByUserId(userId);
     }
 
     @Override
-    public List <Role> findRolesByUserId(String userId) {
+    public List <SysRole> findRolesByUserId(String userId) {
         return userMapper.selectRolesByUserId(userId);
     }
 
     @Override
-    public List <ScoreList> findScoreListByUserIdPaginationAndSearch(String userId, Long start, Long size, String searchtext, String sortorder) {
+    public List <Map <String, Object>> findScoreListByUserIdPaginationAndSearch(String userId, Long start, Long size, String searchtext, String sortorder) {
         Map<String,Object> map = new HashMap <>();
         map.put("userId",userId);
-        map.put("start",start-1);
+        map.put("start",start);
         map.put("size",size);
         map.put("searchText",searchtext);
         map.put("order",sortorder);
         return userMapper.selectScoreListByUserIdPaginationAndSearch(map);
     }
+
 
     @Override
     public Integer findAllScoreCountByUserIdPaginationAndSearch(String userId, String searchtext, String sortorder) {

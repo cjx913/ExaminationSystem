@@ -1,13 +1,19 @@
 package com.cjx913.es.controller;
 
 
-import com.cjx913.es.entity.persistent.Paper;
+import com.alibaba.fastjson.JSONObject;
+import com.cjx913.es.entity.domain.ExamAnswer;
 import com.cjx913.es.exception.CustomException;
+import com.cjx913.es.service.ExaminationService;
 import com.cjx913.es.service.PaperService;
+import com.cjx913.es.service.SubjectClassificationService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.HashBasedTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,18 +27,21 @@ import java.util.Map;
 public class ExaminationController {
 
     @Autowired
+    private SubjectClassificationService subjectClassificationService;
+    @Autowired
     private PaperService paperService;
+    @Autowired
+    private ExaminationService examinationService;
 
     @RequestMapping("/selectSubject")
     public String selectSubject() {
         return "exam/subject_select";
     }
 
-    @GetMapping("/getAllSubjects")
+    @GetMapping("/getAllSubjectsIdAndNamesWithPaperCount")
     @ResponseBody
-    public List <Map <String, Object>> getAllSubjects() {
-        List <Map <String, Object>> subjects = paperService.findAllSubjectsWithPaperCount();
-        return subjects;
+    public List <Map <String, Object>> getAllSubjectsIdAndNamesWithPaperCount() {
+        return subjectClassificationService.findAllSubjectsIdAndNamesWithPaperCount();
     }
 
     @RequestMapping("/selectPaper/{subjectId}")
@@ -40,11 +49,10 @@ public class ExaminationController {
         return "exam/paper_select";
     }
 
-    @GetMapping("/getAllPapers/{subjectId}")
+    @GetMapping("/getAllPapersBySubjectId/{subjectId}")
     @ResponseBody
-    public List <Paper> getAllPapers(@PathVariable(name = "subjectId") String subjectId) {
-        List <Paper> papers = paperService.findAllPapersBySubjectId(subjectId);
-        return papers;
+    public List <Map <String, Object>> getAllPapersBySubjectId(@PathVariable(name = "subjectId") String subjectId) {
+        return paperService.selectAllPapersIdAndNameBySubjectId(subjectId);
     }
 
     @GetMapping("/{subjectId}/{paperId}")
@@ -60,6 +68,9 @@ public class ExaminationController {
         Map <String, Object> result = new HashMap <>();
         try {
             Map <String, Object> map = paperService.findPaperNameAndPdfPathBySubjectIdAndPaperId(subjectId, paperId);
+            if (map == null) {
+                return null;
+            }
             Path path = Paths.get((String) map.get("pdfPath"));
             byte[] data = Files.readAllBytes(path);
             String filename = map.get("paperName") + ".pdf";
@@ -67,10 +78,22 @@ public class ExaminationController {
             result.put("data", data);
 
             //
-            Paper paper = paperService.findPaperBySubjectIdAndPaperId(subjectId,paperId);
-            result.put("paper",paper);
+            Map <String, Object> message = paperService.findPaperMessageByPaperId(paperId);
+            result.put("paperMessage", message);
 
             return result;
+        } catch (IOException e) {
+            throw new CustomException(e);
+        }
+    }
+
+
+    @PostMapping("/submitAnswer")
+    @ResponseBody
+    public String submitAnswer(@RequestBody ExamAnswer examAnswer){
+        try {
+            examinationService.saveExamAnswer(examAnswer);
+            return "success";
         } catch (IOException e) {
             throw new CustomException(e);
         }

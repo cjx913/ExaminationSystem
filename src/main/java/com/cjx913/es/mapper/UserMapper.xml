@@ -6,27 +6,20 @@
         <id column="id" property="userId"/>
         <result column="account" property="account"/>
         <result column="name" property="username"/>
-        <collection property="permissions" javaType="list" column="id" select="selectPermissionsByUserId"/>
-        <collection property="roles" javaType="list" column="id" select="selectRolesByUserId"/>
+        <collection property="sysPermissions" javaType="list" column="id" select="selectPermissionsByUserId"/>
+        <collection property="sysRoles" javaType="list" column="id" select="selectRolesByUserId"/>
     </resultMap>
 
-    <select id="selectScoreListByUserIdPaginationAndSearch" resultType="scoreList">
-        select sc.id as id,su.name as subjectName,p.name as paperName,
-        sc.commit_time as commitTime,sc.evaluation_time as evaluationTime,sc.score as score
-        from t_score as sc,t_subject as su,t_paper as p
+    <select id="selectScoreListByUserIdPaginationAndSearch" resultType="map">
+        select sc.id as scoreId,su.name as subjectName,p.name as paperName,sc.score as score
+        from t_score as sc,t_subject_classification as su,t_paper as p
         where sc.user_id=#{userId} and sc.subject_id=su.id and sc.paper_id=p.id
-
 
         <if test="searchText!=null and searchText!=''">
             and (sc.id like '%${searchText}%'
             or su.name like '%${searchText}%'
             or p.name like '%${searchText}%'
-            or sc.commit_time like '%${searchText}%'
-            or sc.evaluation_time like '%${searchText}%'
             or sc.score like '%${searchText}%')
-        </if>
-        <if test="order!=null and order!=''">
-            order by sc.commit_time ${order}
         </if>
         <if test="start!=null and size!=null">
             limit ${start},${size}
@@ -35,18 +28,13 @@
 
     <select id="selectAllScoreCountByUserIdSearch" parameterType="map" resultType="Integer">
         select count(sc.id) as count
-        from t_score as sc,t_subject as su,t_paper as p
+        from t_score as sc,t_subject_classification as su,t_paper as p
         where sc.user_id=#{userId} and sc.subject_id=su.id and sc.paper_id=p.id
         <if test="searchText!=null and searchText!=''">
             and (sc.id like binary '%${searchText}%'
             or su.name like binary '%${searchText}%'
             or p.name like binary '%${searchText}%'
-            or sc.commit_time like binary '%${searchText}%'
-            or sc.evaluation_time like binary '%${searchText}%'
             or sc.score like binary '%${searchText}%')
-        </if>
-        <if test="order!=null and order!=''">
-            order by sc.commit_time ${order}
         </if>
     </select>
 

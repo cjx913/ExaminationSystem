@@ -1,7 +1,7 @@
 package com.cjx913.es.entity.domain;
 
-import com.cjx913.es.entity.persistent.Permission;
-import com.cjx913.es.entity.persistent.Role;
+import com.cjx913.es.entity.persistent.SysPermission;
+import com.cjx913.es.entity.persistent.SysRole;
 
 import java.io.Serializable;
 import java.security.Principal;
@@ -16,8 +16,8 @@ public class UserIdentity implements Principal ,Serializable {
     private String account;// 用户账号
     private String username;// 用户名称
 
-    private List<Permission> permissions;// 权限
-    private List<Role> roles;
+    private List<SysPermission> sysPermissions;// 权限
+    private List<SysRole> sysRoles;
 
 
     public String getUserId() {
@@ -46,20 +46,20 @@ public class UserIdentity implements Principal ,Serializable {
 
 
 
-    public List <Permission> getPermissions() {
-        return permissions;
+    public List <SysPermission> getSysPermissions() {
+        return sysPermissions;
     }
 
-    public void setPermissions(List <Permission> permissions) {
-        this.permissions = permissions;
+    public void setSysPermissions(List <SysPermission> sysPermissions) {
+        this.sysPermissions = sysPermissions;
     }
 
-    public List <Role> getRoles() {
-        return roles;
+    public List <SysRole> getSysRoles() {
+        return sysRoles;
     }
 
-    public void setRoles(List <Role> roles) {
-        this.roles = roles;
+    public void setSysRoles(List <SysRole> sysRoles) {
+        this.sysRoles = sysRoles;
     }
 
     @Override

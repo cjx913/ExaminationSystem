@@ -1,25 +1,25 @@
 package com.cjx913.es.service;
 
 import com.cjx913.es.entity.domain.UserIdentity;
-import com.cjx913.es.entity.persistent.Permission;
-import com.cjx913.es.entity.persistent.Role;
-import com.cjx913.es.entity.domain.ScoreList;
-import com.cjx913.es.entity.persistent.User;
+import com.cjx913.es.entity.persistent.SysPermission;
+import com.cjx913.es.entity.persistent.SysRole;
+import com.cjx913.es.entity.persistent.SysUser;
 import com.cjx913.es.exception.CustomException;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface UserService {
-    User findUserByName(String username) throws CustomException;
+    SysUser findUserByName(String username) throws CustomException;
 
-    void saveUser(User user) throws CustomException;
+    void saveUser(SysUser sysUser) throws CustomException;
 
-    List <Permission> findPermissionsByUserId(String userId) throws CustomException;
+    List <SysPermission> findPermissionsByUserId(String userId) throws CustomException;
 
-    List <Role> findRolesByUserId(String userId) throws CustomException;
+    List <SysRole> findRolesByUserId(String userId) throws CustomException;
 
-    List<ScoreList> findScoreListByUserIdPaginationAndSearch(String userId, Long start, Long size, String searchtext, String sortorder);
+    List<Map<String,Object>> findScoreListByUserIdPaginationAndSearch(String userId, Long start, Long size, String searchtext, String sortorder);
 
     Integer findAllScoreCountByUserIdPaginationAndSearch(String userId, String searchtext, String sortorder);
 

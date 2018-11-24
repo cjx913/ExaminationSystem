@@ -2,7 +2,7 @@
 
 
 
-<form action="${pageContext.request.contextPath}/paper/upload" method="post" enctype="multipart/form-data">
+<form action="${pageContext.request.contextPath}/TPaper/upload" method="post" enctype="multipart/form-data">
     <label>请选择文件<input id="upload" name="upload" type="file" placeholder="请上传word文档" /></label>
     <input type="submit" value="Upload"/>
 </form>

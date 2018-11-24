@@ -37,7 +37,7 @@ CREATE TABLE `sys_permission` (
 
 LOCK TABLES `sys_permission` WRITE;
 /*!40000 ALTER TABLE `sys_permission` DISABLE KEYS */;
-INSERT INTO `sys_permission` VALUES ('1000','user','/user/',1),('1100','user:create','/user/create',1),('1200','user:retrieve','/user/find',1),('1300','user:update','/user/update',1),('1400','user:delete','/user/delete',1),('2000','paper','/paper/',1),('2100','paper:create','/paper/save',1),('2200','paper:retrieve','/paper/find',1),('2300','paper:update','/paper/update',1),('2400','paper:delete','/paper/delete',1);
+INSERT INTO `sys_permission` VALUES ('1000','sysUser','/sysUser/',1),('1100','sysUser:create','/sysUser/create',1),('1200','sysUser:retrieve','/sysUser/find',1),('1300','sysUser:update','/sysUser/update',1),('1400','sysUser:delete','/sysUser/delete',1),('2000','TPaper','/TPaper/',1),('2100','TPaper:create','/TPaper/save',1),('2200','TPaper:retrieve','/TPaper/find',1),('2300','TPaper:update','/TPaper/update',1),('2400','TPaper:delete','/TPaper/delete',1);
 /*!40000 ALTER TABLE `sys_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

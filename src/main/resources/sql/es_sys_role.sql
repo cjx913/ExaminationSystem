@@ -37,7 +37,7 @@ CREATE TABLE `sys_role` (
 
 LOCK TABLES `sys_role` WRITE;
 /*!40000 ALTER TABLE `sys_role` DISABLE KEYS */;
-INSERT INTO `sys_role` VALUES ('0000','administrator',1),('1000','admin',1),('2000','user',1);
+INSERT INTO `sys_role` VALUES ('0000','administrator',1),('1000','admin',1),('2000','sysUser',1);
 /*!40000 ALTER TABLE `sys_role` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

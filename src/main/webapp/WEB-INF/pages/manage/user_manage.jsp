@@ -95,7 +95,7 @@
                 },
                 {
                     title: '角色',
-                    field: 'roles',
+                    field: 'sysRoles',
                     formatter: function (value) {
                         return JSON.stringify(value);
                     },
@@ -104,7 +104,7 @@
                 },
                 {
                     title: '权限',
-                    field: 'permissions',
+                    field: 'sysPermissions',
                     formatter: function (value) {
                         return JSON.stringify(value);
                     },

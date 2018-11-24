@@ -2,7 +2,6 @@ package com.cjx913.es.controller;
 
 import java.util.*;
 
-import com.cjx913.es.entity.domain.ScoreList;
 import com.cjx913.es.entity.domain.UserIdentity;
 import com.cjx913.es.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ public class UserController {
     @ResponseBody
     public Map<String ,Object> getScoreList(HttpSession session, Long start, Long size, String searchtext, String sortorder) {
         String userId = ((UserIdentity) session.getAttribute("user")).getUserId();
-        List <ScoreList> scoreList = userService.findScoreListByUserIdPaginationAndSearch(userId, start, size, searchtext, sortorder);
+        List <Map<String,Object>> scoreList = userService.findScoreListByUserIdPaginationAndSearch(userId, start, size, searchtext, sortorder);
         Integer total = userService.findAllScoreCountByUserIdPaginationAndSearch(userId,searchtext, sortorder);
         Map<String,Object> map = new HashMap <>();
         map.put("rows",scoreList);

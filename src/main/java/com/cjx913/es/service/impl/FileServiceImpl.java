@@ -1,22 +1,13 @@
 package com.cjx913.es.service.impl;
 
-import com.cjx913.es.entity.persistent.Paper;
-import com.cjx913.es.entity.persistent.PaperFile;
-import com.cjx913.es.exception.CustomException;
-import com.cjx913.es.mapper.PaperMapper;
 import com.cjx913.es.service.FileService;
-import com.cjx913.es.service.PaperService;
 import com.cjx913.es.utils.CustomWordToPdfUtil;
-import com.cjx913.es.utils.WordToPdfUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
