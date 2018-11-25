@@ -25,8 +25,8 @@
         </div>
     </div>
     <div class="row no-gutters">
-        <div id="leftMenu" class="col-auto"
-             　 style="margin-right:10px;box-shadow: 5px 5px 2px #aaa;">
+        <div id="leftMenu" class=" col-sm-4 col-md-3 col-lg-2"
+             　 style="box-shadow: 5px 5px 2px #aaa">
             <div>
                 <ul>
                     <li><a href="${pageContext.request.contextPath}/">首页</a></li>
@@ -42,7 +42,7 @@
                             <div id="collapse_exam_manage" class="collapse">
                                 <ul>
                                     <li><a href="#"
-                                           onclick="meunClick('${pageContext.request.contextPath}/sysUser/consultScore')">科目管理</a>
+                                           onclick="meunClick('${pageContext.request.contextPath}/admin/subjectManage')">科目管理</a>
                                     </li>
                                     <li><a href="#"
                                            onclick="meunClick('${pageContext.request.contextPath}/admin/paperManage')">试题管理</a>
@@ -50,13 +50,13 @@
                                     <li><a href="${pageContext.request.contextPath}/#">成绩管理</a></li>
                                 </ul>
                             </div>
-                            <li><a href="${pageContext.request.contextPath}/#" target="content">消息发布</a></li>
+                            <li><a href="${pageContext.request.contextPath}/#" >考试发布</a></li>
                         </ul>
                     </div>
                 </ul>
             </div>
         </div>
-        <div class="col" id="rightContent" >
+        <div class="col-sm-8 col-md-9 col-lg-10" id="rightContent" >
         </div>
     </div>
 </div>

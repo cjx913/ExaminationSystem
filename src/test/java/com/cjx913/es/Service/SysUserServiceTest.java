@@ -4,6 +4,7 @@ import com.cjx913.es.SpringTest;
 import com.cjx913.es.entity.persistent.SysPermission;
 import com.cjx913.es.entity.persistent.SysUser;
 import com.cjx913.es.service.UserService;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,12 +18,12 @@ public class SysUserServiceTest extends SpringTest {
     @Test
     public void saveUser(){
         SysUser sysUser = new SysUser();
-        sysUser.setAccount("1231212342243321");
         sysUser.setName("abcdlmn");
         sysUser.setPassword("abcdefgh");
         sysUser.setSalt("abcd");
         sysUser.setLocked(0);
-        userService.saveUser(sysUser);
+        SysUser user = userService.saveUser(sysUser);
+        Assert.assertNotNull(user);
     }
 
     @Test

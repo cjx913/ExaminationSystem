@@ -2,6 +2,7 @@ package com.cjx913.es.service;
 
 
 import com.cjx913.es.entity.domain.Subject;
+import com.cjx913.es.entity.domain.SubjectClassification;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,4 +15,7 @@ public interface SubjectClassificationService {
 
 
     List<Map<String, Object>> findAllSubjectsIdAndNamesWithPaperCount();
+
+    SubjectClassification findAllSubjectClassifications();
+    List<SubjectClassification> findAllSubjectClassificationChildrenByParentId(String parentId);
 }

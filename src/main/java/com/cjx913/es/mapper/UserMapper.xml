@@ -2,13 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cjx913.es.mapper.UserMapper">
 
-    <resultMap id="UserIdentityWithPermissionAndRoleMap" type="userIdentity">
-        <id column="id" property="userId"/>
-        <result column="account" property="account"/>
-        <result column="name" property="username"/>
-        <collection property="sysPermissions" javaType="list" column="id" select="selectPermissionsByUserId"/>
-        <collection property="sysRoles" javaType="list" column="id" select="selectRolesByUserId"/>
-    </resultMap>
+
 
     <select id="selectScoreListByUserIdPaginationAndSearch" resultType="map">
         select sc.id as scoreId,su.name as subjectName,p.name as paperName,sc.score as score
@@ -38,6 +32,14 @@
         </if>
     </select>
 
+    <resultMap id="UserIdentityWithPermissionAndRoleMap" type="map">
+        <id column="id" property="userId"/>
+        <result column="account" property="account"/>
+        <result column="name" property="username"/>
+        <collection property="permissions" javaType="list" column="id" select="selectPermissionNamesByUserId"/>
+        <collection property="roles" javaType="list" column="id" select="selectRoleNamesByUserId"/>
+    </resultMap>
+
     <select id="selectAllUserIdentitiesWithPermissionAndRolesPaginationAndSearch" parameterType="map"
             resultMap="UserIdentityWithPermissionAndRoleMap">
         select id,account,name
@@ -62,9 +64,6 @@
             where id like binary '%${searchText}%'
             or name like binary '%${searchText}%'
             or account like binary '%${searchText}%'
-        </if>
-        <if test="order!=null and order!=''">
-            order by name ${order}
         </if>
     </select>
 

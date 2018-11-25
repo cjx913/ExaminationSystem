@@ -82,10 +82,6 @@ public class SystemController {
         SysUser sysUser = new SysUser();
         sysUser.setName(username);
         sysUser.setPassword(password);
-        sysUser.setAccount(String.valueOf((int)(10000000+Math.random()*100000000)));
-//        while (userService.findUserByAccount(sysUser.getAccount())!=null){
-//            sysUser.setAccount(String.valueOf((int)(10000000+Math.random()*100000000)));
-//        }
         sysUser.setSalt(sysUser.getName()+ sysUser.getAccount());
         userService.saveUser(sysUser);
         request.setAttribute("message","注册成功,请登录");

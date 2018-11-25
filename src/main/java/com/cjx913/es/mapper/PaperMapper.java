@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public interface PaperMapper {
@@ -44,4 +45,8 @@ public interface PaperMapper {
             "from t_paper as p inner join t_paper_message as m on p.id=m.paper_id",
             "where p.id=#{paperId}"})
     Map<String, Object> findPaperMessageByPaperId(@Param("paperId") String paperId);
+
+    List<Map<String, Object>> findAllPapersWithExamTimeFullMarkPdfPathWordPath(Map<String,Object> map);
+
+    Integer findAllPapersWithExamTimeFullMarkPdfPathWordPathCount(Map<String,Object> map);
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cjx913.es.mapper.PaperMapper">
+
+
+    <resultMap id="papersWithExamTimeFullMarkPdfPathWordPathMap" type="map">
+        <id column="paperId" property="paperId"/>
+        <result column="paperName" property="paperName"/>
+        <result column="subjectId" property="subjectId"/>
+        <result column="pdfPath" property="pdfPath"/>
+        <result column="wordPath" property="wordPath"/>
+        <result column="examTime" property="examTime"/>
+        <result column="fullMark" property="fullMark"/>
+    </resultMap>
+
+    <select id="findAllPapersWithExamTimeFullMarkPdfPathWordPath" parameterType="map"
+            resultMap="papersWithExamTimeFullMarkPdfPathWordPathMap">
+        select p.id as paperId,p.name as paperName,sc.name as subjectName,
+        pf.pdf_path as pdfPath,pf.word_path as wordPath,
+        pm.exam_time as examTime,pm.full_mark as fullMark
+        from t_paper as p,t_paper_file as pf,t_paper_message as pm,t_subject_classification as sc
+        where p.id=pf.paper_id and p.id = pm.paper_id and p.subject_id=sc.id
+
+        <if test="searchText!=null and searchText!=''">
+            and (p.id like '%${searchText}%'
+            or p.name like '%${searchText}%'
+            or pf.pdf_path like '%${searchText}%'
+            or pf.word_path like '%${searchText}%'
+            or pm.exam_time like '%${searchText}%'
+            or pm.full_mark like '%${searchText}%')
+        </if>
+        <if test="start!=null and size!=null">
+            limit ${start},${size}
+        </if>
+    </select>
+
+    <select id="findAllPapersWithExamTimeFullMarkPdfPathWordPathCount" parameterType="map" resultType="int">
+        select count(p.id)
+        from t_paper as p,t_paper_file as pf,t_paper_message as pm
+        where p.id=pf.paper_id and p.id = pm.paper_id
+
+        <if test="searchText!=null and searchText!=''">
+            and (p.id like '%${searchText}%'
+            or p.name like '%${searchText}%'
+            or pf.pdf_path like '%${searchText}%'
+            or pf.word_path like '%${searchText}%'
+            or pm.exam_time like '%${searchText}%'
+            or pm.full_mark like '%${searchText}%')
+        </if>
+    </select>
+
+
+</mapper>

@@ -3,7 +3,12 @@
     <div class="row">
         <div class="col-12">
             <div id="toolbar">
-                <button id="remove" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                <button onclick="deleteSelectUsers()" id="remove" class="btn btn-danger"><i class="fa fa-trash"
+                                                                                            aria-hidden="true"></i>
+                </button>
+                <button onclick="addUser()" id="addUser" class="btn btn-success"><i class="fa fa-plus-square "
+                                                                                    aria-hidden="true"></i>
+                </button>
             </div>
             <table id="userTable">
             </table>
@@ -17,8 +22,25 @@
         $table = initScoreListTable("#userTable", "#toolbar");
     });
 
+    function deleteSelectUsers() {
+        alert("delete");
+        var getSelectRows = $("#userTable").bootstrapTable('getSelections', function (row) {
+            return row;
+        });
+        for (var v of getSelectRows) {
+            //${pageContext.request.contextPath}/admin/user/delete/
+            //模拟删除
+            alert(v.userId+"已删除(模拟)");
+        }
+    }
+
+    function addUser() {
+        alert("add");
+    }
+
 
     function initScoreListTable(tableId, toolbarId) {
+
 
         var table = $(tableId).bootstrapTable({
             //工具栏
@@ -33,12 +55,12 @@
             totalField: "total",
             method: 'get',
             contentType: "application/json;charset=UTF-8",
-            url: "${pageContext.request.contextPath}/admin/getAllUserIdentities",
+            url: "${pageContext.request.contextPath}/admin/user/getAllUserIdentities",
             dataType: "json",
             queryParams: function (params) {
                 return {
                     size: params.limit,
-                    start: params.offset + 1,
+                    start: params.offset,
                     searchtext: params.search,
                     sortorder: params.order
                 }
@@ -79,13 +101,14 @@
                     field: 'userId',
                     halign: "center",
                     align: 'left',
-                    width: 'col-auto'
+                    width: 'col-auto',
+                    visible: false
                 },
                 {
                     title: '账号',
                     field: 'account',
                     halign: "center",
-                    align: 'right',
+                    align: 'left',
                 },
                 {
                     title: '用户名',
@@ -95,44 +118,58 @@
                 },
                 {
                     title: '角色',
-                    field: 'sysRoles',
+                    field: 'roles',
                     formatter: function (value) {
-                        return JSON.stringify(value);
+                        var roles = "";
+                        if (value != null) {
+                            for (var name of value) {
+                                roles = roles + name + ",";
+                            }
+                        }
+                        return roles.substr(0, roles.length - 1);
                     },
                     halign: "center",
                     align: 'center',
                 },
                 {
                     title: '权限',
-                    field: 'sysPermissions',
+                    field: 'permissions',
                     formatter: function (value) {
-                        return JSON.stringify(value);
+                        var permissions = "";
+                        if (value != null) {
+                            for (var name of value) {
+                                permissions = permissions + name + ",";
+                            }
+                        }
+                        return permissions.substr(0, permissions.length - 1);
                     },
                     halign: "center",
                     align: 'center',
                 },
                 {
                     title: '修改',
-                    formatter: function () {
-                        return "<a href='#'>修改</a>";
+                    field: 'userId',
+                    formatter: function (value) {
+                        return "<a href='${pageContext.request.contextPath}/admin/user/update/" + value + "'>修改</a>";
                     },
                     halign: "center",
                     align: 'center',
                 },
                 {
                     title: '删除',
-                    formatter: function () {
-                        return "<a href='#'>修改</a>";
+                    field: 'userId',
+                    formatter: function (value) {
+                        return "<a href='${pageContext.request.contextPath}/admin/user/delete/" + value + "'>删除</a>";
                     },
                     halign: "center",
                     align: 'center',
-                },
+                }
             ],
             sortable: true,
             uniqueId: 'userId',
             clickToSelect: true,
             singleSelect: false,
-            minimumCountColumns:3,
+            minimumCountColumns: 5,
             //事件
             //先触发列事件再触发行时间
             /*点击某一列触发的事件*/

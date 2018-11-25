@@ -49,8 +49,8 @@ public class CustomRealm extends AuthorizingRealm {
         String username = (String) token.getPrincipal();
 
         // 第二步：根据用户输入的userCode从数据库查询
-        SysUser sysUser = null;
-        sysUser = userService.findUserByName(username);
+        SysUser sysUser = userService.findUserByName(username);
+
 
 
         // 如果查询不到返回null

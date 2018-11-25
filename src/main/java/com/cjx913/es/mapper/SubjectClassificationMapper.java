@@ -1,9 +1,11 @@
 package com.cjx913.es.mapper;
 
+import com.cjx913.es.entity.domain.SubjectClassification;
 import com.cjx913.es.entity.persistent.TSubjectClassification;
 import org.apache.ibatis.annotations.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public interface SubjectClassificationMapper {
@@ -25,7 +27,7 @@ public interface SubjectClassificationMapper {
      *
      * @return
      */
-    @Select({"select id,name,parent,avaliable", "from t_subject_classification", "where =1"})
+    @Select({"select id,name,parent,avaliable", "from t_subject_classification", "where avaliable=1"})
     ArrayList <TSubjectClassification> selectAllAvaliableSubjectClassifications();
 
     /**
@@ -75,4 +77,9 @@ public interface SubjectClassificationMapper {
     Integer deleteSubjectClassificationByParent(@Param("parent") String parent);
 
 
+    @Select({"select id,name,parent as parentId,avaliable", "from t_subject_classification", "where id='00000000000000000000000000000000'"})
+    SubjectClassification selectSubjectClassificationRoot();
+
+    @Select({"select id,name,parent as parentId,avaliable", "from t_subject_classification", "where id!='00000000000000000000000000000000' and parent=#{parentId}"})
+    ArrayList<SubjectClassification> selectSubjectClassificationChildrenByParentId(@Param("parentId") String parentId);
 }

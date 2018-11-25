@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -27,5 +29,22 @@ public class PaperServiceImpl implements PaperService {
     @Override
     public Map <String, Object> findPaperMessageByPaperId(String paperId) {
         return paperMapper.findPaperMessageByPaperId(paperId);
+    }
+
+    @Override
+    public List<Map <String, Object>> findAllPapersWithExamTimeFullMarkPdfPathWordPath(Long start, Long size, String searchtext, String sortorder) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("start",start);
+        map.put("size",size);
+        map.put("searchText",searchtext);
+        map.put("order",sortorder);
+        return paperMapper.findAllPapersWithExamTimeFullMarkPdfPathWordPath(map);
+    }
+
+    public Integer findAllPapersWithExamTimeFullMarkPdfPathWordPathCount(String searchtext, String sortorder) {
+        Map<String,Object> map = new HashMap <>();
+        map.put("searchText",searchtext);
+        map.put("order",sortorder);
+        return paperMapper.findAllPapersWithExamTimeFullMarkPdfPathWordPathCount(map);
     }
 }

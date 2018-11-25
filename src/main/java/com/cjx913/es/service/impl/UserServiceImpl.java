@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.cjx913.es.entity.domain.UserIdentity;
 import com.cjx913.es.entity.persistent.SysPermission;
 import com.cjx913.es.entity.persistent.SysRole;
 import com.cjx913.es.entity.persistent.SysUser;
@@ -30,10 +29,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(SysUser sysUser) throws CustomException {
+    public SysUser saveUser(SysUser sysUser) throws CustomException {
         String password = new Md5Hash(sysUser.getPassword(), sysUser.getSalt(), 1).toString();
         sysUser.setPassword(password);
-        userMapper.insetUser(sysUser);
+        sysUser.setAccount(String.valueOf((int)(2000000+Math.random()*1000000)));
+        while (userMapper.selectUserCountByAccount(sysUser.getAccount())>0){
+            sysUser.setAccount(String.valueOf((int)(10000000+Math.random()*100000000)));
+        }
+        Integer integer = userMapper.insetUser(sysUser);
+        SysUser user = userMapper.selectUserByNameAndPassword(sysUser.getName(), sysUser.getPassword());
+        userMapper.setUserRole(user.getId());
+        return user;
     }
 
     @Override
@@ -68,9 +74,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List <UserIdentity> findAllUserIdentitiesWithPermissionAndRolesPaginationAndSearch(Long start, Long size, String searchtext, String sortorder) {
+    public List <Map <String, Object>> findAllUserIdentitiesWithPermissionAndRolesPaginationAndSearch(Long start, Long size, String searchtext, String sortorder) {
         Map<String,Object> map = new HashMap <>();
-        map.put("start",start-1);
+        map.put("start",start);
         map.put("size",size);
         map.put("searchText",searchtext);
         map.put("order",sortorder);
@@ -83,5 +89,10 @@ public class UserServiceImpl implements UserService {
         map.put("searchText",searchtext);
         map.put("order",sortorder);
         return userMapper.selectAllUserIdentitiesCountSearch(map);
+    }
+
+    @Override
+    public Integer deleteUserByUserId(String userId) {
+        return userMapper.deleteUserByUserId(userId);
     }
 }
